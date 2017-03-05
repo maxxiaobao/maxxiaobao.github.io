@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2017-03-04T08:52:52.978Z</updated>
+  <updated>2017-03-05T06:27:48.163Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -16,29 +16,89 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>JavaScript操作数组</title>
+    <link href="http://yoursite.com/2017/03/05/JS%E6%95%B0%E7%BB%84%E6%93%8D%E4%BD%9C/"/>
+    <id>http://yoursite.com/2017/03/05/JS数组操作/</id>
+    <published>2017-03-05T05:31:00.000Z</published>
+    <updated>2017-03-05T06:27:48.163Z</updated>
+    
+    <content type="html">&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;一般用到的就是遍历数组取值完成数据渲染，突然发现不记得数组操作了~学！&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;blockquote&gt;
+&lt;h4 id=&quot;1-数组的新建&quot;&gt;&lt;a href=&quot;#1-数组的新建&quot; class=&quot;headerlink&quot; title=&quot;1 数组的新建&quot;&gt;&lt;/a&gt;1 数组的新建&lt;/h4&gt;&lt;/blockquote&gt;
+&lt;figure class=&quot;highlight javascript&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;var&lt;/span&gt; arrayObj = &lt;span class=&quot;keyword&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;built_in&quot;&gt;Array&lt;/span&gt;();　&lt;span class=&quot;comment&quot;&gt;//创建一个数组&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;var&lt;/span&gt; arrayObj = &lt;span class=&quot;keyword&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;built_in&quot;&gt;Array&lt;/span&gt;([size]);　&lt;span class=&quot;comment&quot;&gt;//创建一个数组并指定长度，注意不是上限，是长度&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;var&lt;/span&gt; arrayObj = &lt;span class=&quot;keyword&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;built_in&quot;&gt;Array&lt;/span&gt;([element0[, element1[, ...[, elementN]]]]);　&lt;span class=&quot;comment&quot;&gt;//创建一个数组并赋值&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;第二种方法虽然指定了数组的长度，但数组的长度是可变的，指定了数组长度为5，当存储6个元素时，数组长度即为6。&lt;/p&gt;
+&lt;a id=&quot;more&quot;&gt;&lt;/a&gt;
+&lt;blockquote&gt;
+&lt;h4 id=&quot;2-数组元素的访问&quot;&gt;&lt;a href=&quot;#2-数组元素的访问&quot; class=&quot;headerlink&quot; title=&quot;2 数组元素的访问&quot;&gt;&lt;/a&gt;2 数组元素的访问&lt;/h4&gt;&lt;/blockquote&gt;
+&lt;figure class=&quot;highlight javascript&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;var&lt;/span&gt; testGetArrValue = arrayObj[i];  &lt;span class=&quot;comment&quot;&gt;//获取元素的值&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;var&lt;/span&gt; arrObj[i] = &lt;span class=&quot;string&quot;&gt;&quot;这是元素的值&quot;&lt;/span&gt;;    &lt;span class=&quot;comment&quot;&gt;//给数组元素赋值&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;pre&gt;&lt;code&gt;i是数组的第（i+1）个元素，因为数组的下标是从0开始的
+&lt;/code&gt;&lt;/pre&gt;&lt;blockquote&gt;
+&lt;h4 id=&quot;3-数组元素的添加&quot;&gt;&lt;a href=&quot;#3-数组元素的添加&quot; class=&quot;headerlink&quot; title=&quot;3 数组元素的添加&quot;&gt;&lt;/a&gt;3 数组元素的添加&lt;/h4&gt;&lt;/blockquote&gt;
+&lt;figure class=&quot;highlight javascript&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;arrObj.push(item);   &lt;span class=&quot;comment&quot;&gt;//将元素添加到数组的尾部，返回新数组的长度&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;arrObj.unshift(item);   &lt;span class=&quot;comment&quot;&gt;//将元素添加到数组的头部，其他元素后移，返回新数组的长度&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;arrObj.splice(index,howmany,item1,.....,itemX);  &lt;span class=&quot;comment&quot;&gt;//index（必填）添加/删除元素的起始位置，howmany（必填）添加/删除元素的个数，item(选填)如果有则添加，没有就删除&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;blockquote&gt;
+&lt;h4 id=&quot;4-数组元素的删除&quot;&gt;&lt;a href=&quot;#4-数组元素的删除&quot; class=&quot;headerlink&quot; title=&quot;4 数组元素的删除&quot;&gt;&lt;/a&gt;4 数组元素的删除&lt;/h4&gt;&lt;/blockquote&gt;
+&lt;figure class=&quot;highlight javascript&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;arrObj.pop();     &lt;span class=&quot;comment&quot;&gt;//移除最后一个元素，返回被除元素的值&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;arrObj.shift();   &lt;span class=&quot;comment&quot;&gt;//移除第一个元素，返回移除元素的值，其他元素前移&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;arrObj.splice(deletePos,deleteCount);&lt;span class=&quot;comment&quot;&gt;//deletePos移除位置，deleteCount移除的数量，返以数组的形式回移除的元素&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;blockquote&gt;
+&lt;h4 id=&quot;5-数组的截取与合并&quot;&gt;&lt;a href=&quot;#5-数组的截取与合并&quot; class=&quot;headerlink&quot; title=&quot;5 数组的截取与合并&quot;&gt;&lt;/a&gt;5 数组的截取与合并&lt;/h4&gt;&lt;/blockquote&gt;
+&lt;figure class=&quot;highlight javascript&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;arrObj.slice(start,end);   &lt;span class=&quot;comment&quot;&gt;//以数组的形式返回从start到end的元素（不包括end），如果end不填则返回star后的所有元素&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;arrObj.concat(item);  &lt;span class=&quot;comment&quot;&gt;//arrObj与item合并为新的数组，item可以是元素、也可以是数组，返回合并后的新数组&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;blockquote&gt;
+&lt;h4 id=&quot;6-数组的拷贝&quot;&gt;&lt;a href=&quot;#6-数组的拷贝&quot; class=&quot;headerlink&quot; title=&quot;6 数组的拷贝&quot;&gt;&lt;/a&gt;6 数组的拷贝&lt;/h4&gt;&lt;/blockquote&gt;
+&lt;figure class=&quot;highlight javascript&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;arrayObj.slice(&lt;span class=&quot;number&quot;&gt;0&lt;/span&gt;); &lt;span class=&quot;comment&quot;&gt;//返回数组的拷贝数组，注意是一个新的数组，不是指向&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;arrayObj.concat(); &lt;span class=&quot;comment&quot;&gt;//返回数组的拷贝数组，注意是一个新的数组，不是指向&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;blockquote&gt;
+&lt;h4 id=&quot;7-数组的排序&quot;&gt;&lt;a href=&quot;#7-数组的排序&quot; class=&quot;headerlink&quot; title=&quot;7 数组的排序&quot;&gt;&lt;/a&gt;7 数组的排序&lt;/h4&gt;&lt;/blockquote&gt;
+&lt;figure class=&quot;highlight javascript&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;arrObj.reverse();  &lt;span class=&quot;comment&quot;&gt;//数组反转，返回数组地址&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;arrObj.sort();  &lt;span class=&quot;comment&quot;&gt;//数组元素排序，返回数组地址&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;blockquote&gt;
+&lt;h4 id=&quot;8-数组元素字符串化&quot;&gt;&lt;a href=&quot;#8-数组元素字符串化&quot; class=&quot;headerlink&quot; title=&quot;8 数组元素字符串化&quot;&gt;&lt;/a&gt;8 数组元素字符串化&lt;/h4&gt;&lt;/blockquote&gt;
+&lt;figure class=&quot;highlight javascript&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;arrayObj.join(separator); &lt;span class=&quot;comment&quot;&gt;//返回字符串，这个字符串将数组的每一个元素值连接在一起，中间用 separator 隔开。&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;toLocaleString 、toString 、valueOf：可以看作是join的特殊用法，不常用&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;blockquote&gt;
+&lt;h4 id=&quot;9-数组的三个属性&quot;&gt;&lt;a href=&quot;#9-数组的三个属性&quot; class=&quot;headerlink&quot; title=&quot;9 数组的三个属性&quot;&gt;&lt;/a&gt;9 数组的三个属性&lt;/h4&gt;&lt;/blockquote&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;length :数组元素的个数，数组的长度是可定义的，但它是可变的&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;prototype :返回对象类型原型的引用。prototype 属性是 object 共有的。&lt;br&gt;objectName.prototype&lt;br&gt;objectName 参数是object对象的名称&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;constructor :表示创建对象的函数。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;文章参考http://blog.csdn.net/xcxinghai/article/details/13502583&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;</content>
+    
+    <summary type="html">
+    
+      &lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;一般用到的就是遍历数组取值完成数据渲染，突然发现不记得数组操作了~学！&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;blockquote&gt;
+&lt;h4 id=&quot;1-数组的新建&quot;&gt;&lt;a href=&quot;#1-数组的新建&quot; class=&quot;headerlink&quot; title=&quot;1 数组的新建&quot;&gt;&lt;/a&gt;1 数组的新建&lt;/h4&gt;&lt;/blockquote&gt;
+&lt;figure class=&quot;highlight javascript&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;var&lt;/span&gt; arrayObj = &lt;span class=&quot;keyword&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;built_in&quot;&gt;Array&lt;/span&gt;();　&lt;span class=&quot;comment&quot;&gt;//创建一个数组&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;var&lt;/span&gt; arrayObj = &lt;span class=&quot;keyword&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;built_in&quot;&gt;Array&lt;/span&gt;([size]);　&lt;span class=&quot;comment&quot;&gt;//创建一个数组并指定长度，注意不是上限，是长度&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;var&lt;/span&gt; arrayObj = &lt;span class=&quot;keyword&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;built_in&quot;&gt;Array&lt;/span&gt;([element0[, element1[, ...[, elementN]]]]);　&lt;span class=&quot;comment&quot;&gt;//创建一个数组并赋值&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;第二种方法虽然指定了数组的长度，但数组的长度是可变的，指定了数组长度为5，当存储6个元素时，数组长度即为6。&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="javascript" scheme="http://yoursite.com/tags/javascript/"/>
+    
+  </entry>
+  
+  <entry>
     <title>2016年终总结</title>
     <link href="http://yoursite.com/2017/02/10/2016%E5%B9%B4%E7%BB%88%E6%80%BB%E7%BB%93/"/>
     <id>http://yoursite.com/2017/02/10/2016年终总结/</id>
     <published>2017-02-10T12:03:00.000Z</published>
-    <updated>2017-03-04T08:52:52.978Z</updated>
+    <updated>2017-03-05T06:32:02.113Z</updated>
     
-    <content type="html">&lt;p&gt;  这是这一年的第一的工作周的周六，再不写年终总结2017二月就要过完了~2016是我过得很累的一年，身体也累心也累~但充实啊！&lt;/p&gt;
+    <content type="html">&lt;p&gt;  这是这一年的第一个工作周的周六，再不写年终总结2017二月就要过完了~2016是我过得很累的一年，身体也累心也累~因为这一年总是心慌慌，话说回来但充实啊！&lt;/p&gt;
 &lt;a id=&quot;more&quot;&gt;&lt;/a&gt;
-&lt;p&gt;  2016的上半年是我大三的下半学年，当时学习前端还是很积极的，因为想要在暑假找一份实习，上半年一直很担心，知道下半年要去基地，知道自己学校背景不够硬参加校招很吃力，所以一直都是心慌慌的。上半年的我无论干什么都好，其实还是一直有保持学习的~在晚上参加百度前端学院，好的时候一天两个任务，吃力的时候两到三天一个任务，陆陆续续完成40个任务。&lt;/p&gt;
-&lt;p&gt;  很快暑假到来了，学校放假晚还开学早，一个月的实习生谁会要~~~？当时大哥哥说可以去成都，当&lt;br&gt;时觉得到了那里吃喝住好麻烦的，现在想想真的好后悔，当时去了，可能就是另一个样子了，但是世上&lt;br&gt;没有卖后悔药的呀~一切都是最好的安排。在家学习简直就是开玩笑，所以暑假也是晃晃悠悠的过了一个&lt;br&gt;月，我一直心慌慌的好处就是我时刻准备着，所以简历早早的就写好了~为了应对到青软后的招聘要求每&lt;br&gt;人都要有一套正装一双高跟鞋，当时觉得很多余，现在想想，真的是太重要了！&lt;/p&gt;
-&lt;p&gt;  很快暑假过完了（毕竟只有一个月的暑假），到了青软，学习的时候真的是很应付，因为最初老师&lt;br&gt;讲的知识我王原来都讲过了，到后来有个女老师讲还原PSD图还是很好的，那个时候学会了简单的使用&lt;br&gt;PS，在青软待了将近一个月，现在所在的公司来招人了，迎来了第一次面试，紧张但又兴奋，经过三次&lt;br&gt;面试和一次电话面试成功拿到了offer，心里毛毛的，后来陆陆续续又来了很多家，也拿了几个，自己&lt;br&gt;不知道如何做决定，说白了还是不够勇敢、没有主见，因为这个原因我觉得我当时已经把很多机会错过&lt;br&gt;了，记得当时不知道该如何下决定，周边的人还总是说些什么，搞得我跟我爸打电话还哭了一次（这句&lt;br&gt;写出来好丢人，但不写忘了怎么办:-D）在这里告诉你们一个真理，没有什么事是回家一趟解决不了的，&lt;br&gt;如果有那就多呆几天:-D 回家的时候整好是中秋，在家呆了几天做了决定，然后就在国庆时到了上海。&lt;/p&gt;
-&lt;p&gt;  上海有好几个亲戚，来的这里真的很麻烦他们，真的。记得来到上海时家里人特别不放心，&lt;br&gt;我当时想一个人一辈子吃的苦是有限的，这是我现在必须经历的，人家那些没有亲戚的自己吃&lt;br&gt;苦，我这些苦现在不吃以后也得受阿~但话说回来，如果当时没我哥带我我可能会很惨~~~/(ㄒoㄒ)/&lt;br&gt;是距离上班前几天到的上海，到了后还是玩了几天的南京路步行街、外滩、人民广场阿（全是人）&lt;br&gt;10月8正式上班了~刚到的时候什么也不知道，什么也不懂，问也不知道该怎么开口~于是问师父我&lt;br&gt;有什么可以做的，师父让我写了一个表格，然后两个表格，然后一个页面，慢慢的终于上手了~在&lt;br&gt;后来的日子里真的学会了ajax，明白了什么是异步加载，明白了什么叫数据渲染，原来想的真的太&lt;br&gt;简单了，现在才开始明白点什么叫前端。这次真的接触到项目，感觉除了技术以外，更应该细心，&lt;br&gt;从用户体验出发，学着让代码跟简洁，性能更优化~测试姐姐给我测出那些BUG来，我有时候真的是&lt;br&gt;不愿意承认，为什么这种问题也会有，这种问题也会出现？（捂脸）&lt;/p&gt;
+&lt;p&gt;  2016的上半年是我大三的下半学年，当时学习前端还是很积极的，因为想要在暑假找一份实习，上半一直很担心，知道下半年要去基地，知道自己学校背景不够硬参加校招很吃力，所以一直都是心慌慌的。上半年的我无论干什么都好，其实还是一直有保持学习的~在网上参加百度前端学院，好的时候一天两个任务，吃力的时候两到三天一个任务，陆陆续续完成40个任务。&lt;/p&gt;
+&lt;p&gt;  很快暑假到来了，学校放假晚还开学早，一个月的实习生谁会要~~~？当时大哥哥说可以去成都，当&lt;br&gt;时觉得到了那里吃喝住好麻烦的，现在想想真的好后悔，当时去了，可能就是另一个样子了，但是世上&lt;br&gt;没有卖后悔药的呀~一切都是最好的安排。在家学习简直就是开玩笑，所以暑假也是晃晃悠悠的过了一个&lt;br&gt;月，我一直心慌慌的好处就是我时刻准备着，所以简历早早的就写好了~为了应对到招聘要求每人都要有一套正装一双高跟鞋，当时觉得很多余，现在想想，真的是太重要了！&lt;/p&gt;
+&lt;p&gt;  很快暑假过完了（毕竟只有一个月的暑假），学习的时候真的是很应付，因为最初老师讲的知识我王原来都讲过了，到后来有个女老师讲还原PSD图还是很好的，那个时候学会了简单的使用PS，在青软待了将近一个月，现在所在的公司来招人了，迎来了第一次面试，紧张但又兴奋，经过三次面试和一次电话面试成功拿到了offer，心里毛毛的，后来陆陆续续又来了很多家，也拿了几个，自己不知道如何做决定，说白了还是不够勇敢、没有主见，因为这个原因我觉得我当时已经把很多机会错过了，记得当时不知道该如何下决定，周边的人还总是说些什么，搞得我跟我爸打电话还哭了一次（这句写出来好丢人，但不写忘了怎么办:-D）在这里告诉你们一个真理，没有什么事是回家一趟解决不了的，如果有那就多呆几天:-D 回家的时候整好是中秋，在家呆了几天做了决定，然后就在国庆时到了上海。&lt;/p&gt;
+&lt;p&gt;  上海有好几个亲戚，来的这里真的很麻烦他们，真的。来到上海时家里人特别不放心，我当时想一个人一辈子吃的苦是有限的，这是我现在必须经历的，人家那些没有亲戚的自己吃苦，我这些苦现在不吃以后也得受阿~但话说回来，如果当时没我哥带我我可能会很惨~~~/(ㄒoㄒ)/是距离上班前几天到的上海，到了后还是玩了几天的南京路步行街、外滩、人民广场阿（全是人）10月8正式上班了~刚到的时候什么也不知道，什么也不懂，问也不知道该怎么开口~于是问师父我有什么可以做的，师父让我写了一个表格，然后两个表格，然后一个页面，慢慢的终于上手了~在后来的日子里真的学会了ajax，明白了什么是异步加载，明白了什么叫数据渲染，原来想的真的太简单了，现在才开始明白点什么叫前端。这次真的接触到项目，感觉除了技术以外，更应该细心，从用户体验出发，学着让代码跟简洁，性能更优化~测试姐姐给我测出那些BUG来，我有时候真的是不愿意承认，为什么这种问题也会有，这种问题也会出现？（捂脸）&lt;/p&gt;
 &lt;p&gt;  新的一年再接再厉，学习更多的技术，get更多的技能！&lt;br&gt;  &lt;li&gt;遇到问题一定要把解决方案记录下来，真的是回头就忘&lt;/li&gt;&lt;br&gt;  &lt;li&gt;一周看一场电影，不一定非得去影院&lt;/li&gt;&lt;br&gt;  &lt;li&gt;把读书这件事给捡起来&lt;/li&gt;&lt;br&gt;  &lt;li&gt;锻jian炼fei身体呀&lt;/li&gt;&lt;br&gt;  &lt;li&gt;想把我王叔拿下（这是什么鬼？）&lt;/li&gt;&lt;/p&gt;
 </content>
     
     <summary type="html">
     
-      &lt;p&gt;  这是这一年的第一的工作周的周六，再不写年终总结2017二月就要过完了~2016是我过得很累的一年，身体也累心也累~但充实啊！&lt;/p&gt;
+      &lt;p&gt;  这是这一年的第一个工作周的周六，再不写年终总结2017二月就要过完了~2016是我过得很累的一年，身体也累心也累~因为这一年总是心慌慌，话说回来但充实啊！&lt;/p&gt;
     
     </summary>
     
-    
-      <category term="Java" scheme="http://yoursite.com/tags/Java/"/>
     
   </entry>
   
@@ -450,9 +510,9 @@
     </summary>
     
     
-      <category term="学习" scheme="http://yoursite.com/tags/%E5%AD%A6%E4%B9%A0/"/>
-    
       <category term="生活" scheme="http://yoursite.com/tags/%E7%94%9F%E6%B4%BB/"/>
+    
+      <category term="学习" scheme="http://yoursite.com/tags/%E5%AD%A6%E4%B9%A0/"/>
     
   </entry>
   
@@ -553,9 +613,9 @@
     </summary>
     
     
-      <category term="学习" scheme="http://yoursite.com/tags/%E5%AD%A6%E4%B9%A0/"/>
-    
       <category term="生活" scheme="http://yoursite.com/tags/%E7%94%9F%E6%B4%BB/"/>
+    
+      <category term="学习" scheme="http://yoursite.com/tags/%E5%AD%A6%E4%B9%A0/"/>
     
   </entry>
   
