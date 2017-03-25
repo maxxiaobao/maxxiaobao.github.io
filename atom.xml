@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2017-03-05T06:27:48.163Z</updated>
+  <updated>2017-03-25T06:35:41.367Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -14,6 +14,55 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>来一个好看的console.log</title>
+    <link href="http://yoursite.com/2017/03/25/%E6%9D%A5%E4%B8%80%E4%B8%AA%E5%A5%BD%E7%9C%8B%E7%9A%84console.log/"/>
+    <id>http://yoursite.com/2017/03/25/来一个好看的console.log/</id>
+    <published>2017-03-25T06:09:12.256Z</published>
+    <updated>2017-03-25T06:35:41.367Z</updated>
+    
+    <content type="html">&lt;p&gt;每天都在console.log(),在debug的时候确实很好用，无意间在爱奇艺F12了一下，发现原来console还可以有样式的~? 刚给域名续了两年（比收到刚买的包包还开心），接下来看看好看的log吧~&lt;/p&gt;
+&lt;p&gt;—————————————————-先来一条分割线—————————————————————–&lt;/p&gt;
+ &lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;console.log(data);&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt; 一般的我们是这样写的,data一般是个变量或者是个其他什么值，写法简单，打印出来也很简单，他是这样子的&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://7xslws.com1.z0.glb.clouddn.com/img1.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+&lt;p&gt;那么加样式应该怎么写呢？&lt;/p&gt;
+&lt;a id=&quot;more&quot;&gt;&lt;/a&gt;
+&lt;p&gt;举个栗子&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;console.log(&amp;quot;%c我有样式了&amp;quot;, &amp;quot;color: red&amp;quot;);&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;看图就可能更明了了&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://7xslws.com1.z0.glb.clouddn.com/img2.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+&lt;p&gt;所以说要识别文字要在前边加一个%c，这样才知道前边是文字，后边是样式&lt;/p&gt;
+&lt;p&gt;接下来&lt;/p&gt;
+&lt;p&gt;你可能会问&lt;/p&gt;
+&lt;p&gt;我每个字的样式不一样的那怎么办呢&lt;/p&gt;
+&lt;p&gt;哈哈哈哈哈哈&lt;/p&gt;
+&lt;p&gt;我就知道你会这么问&lt;/p&gt;
+&lt;p&gt;看代码&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;console.log(&amp;quot;%c我有样式了 %c我有样式吗？&amp;quot;,&amp;quot;color: red&amp;quot;);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;console.log(&amp;quot;%c我有样式了 %c我有样式吗？&amp;quot;,&amp;quot;color: red&amp;quot;,&amp;quot;color: green&amp;quot;);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;console.log(&amp;quot;%c我有样式了 %c我有样式吗？%c必须的有样式啊&amp;quot;,&amp;quot;color: red&amp;quot;,&amp;quot;color: green&amp;quot;,&amp;quot;color: yellow&amp;quot;);&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;看图&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://7xslws.com1.z0.glb.clouddn.com/img3.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+&lt;p&gt;所以说有几个样式就对应几个%c，没有样式了，%c也就被认为是普通字符了&lt;/p&gt;
+&lt;p&gt;还有这个&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;console.log(&amp;apos;%c彩色文字啊 &amp;apos;, &amp;apos;background-image:-webkit-gradient( linear, left top, right top, color-stop(0, #f22), color-stop(0.15, #f2f), color-stop(0.3, #22f), color-stop(0.45, #2ff), color-stop(0.6, #2f2),color-stop(0.75, #2f2), color-stop(0.9, #ff2), color-stop(1, #f22) );color:transparent;-webkit-background-clip: text;font-size:5em;&amp;apos;);&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;比较有趣的console &lt;a href=&quot;https://www.zhihu.com/question/28831274&quot; title=&quot;&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;https://www.zhihu.com/question/28831274&lt;/a&gt;(他们是怎么找到的？恩？)&lt;/p&gt;
+&lt;p&gt;可以看下console的API&lt;a href=&quot;http://getfirebug.com/wiki/index.php/Console.log&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;http://getfirebug.com/wiki/index.php/Console.log&lt;/a&gt;&lt;br&gt;还有这个&lt;a href=&quot;http://www.css88.com/archives/3678&quot; title=&quot;&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;http://www.css88.com/archives/3678&lt;/a&gt;&lt;/p&gt;
+</content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;每天都在console.log(),在debug的时候确实很好用，无意间在爱奇艺F12了一下，发现原来console还可以有样式的~? 刚给域名续了两年（比收到刚买的包包还开心），接下来看看好看的log吧~&lt;/p&gt;
+&lt;p&gt;—————————————————-先来一条分割线—————————————————————–&lt;/p&gt;
+ &lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;console.log(data);&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt; 一般的我们是这样写的,data一般是个变量或者是个其他什么值，写法简单，打印出来也很简单，他是这样子的&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://7xslws.com1.z0.glb.clouddn.com/img1.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+&lt;p&gt;那么加样式应该怎么写呢？&lt;/p&gt;
+    
+    </summary>
+    
+    
+  </entry>
   
   <entry>
     <title>JavaScript操作数组</title>
@@ -82,7 +131,7 @@
     <link href="http://yoursite.com/2017/02/10/2016%E5%B9%B4%E7%BB%88%E6%80%BB%E7%BB%93/"/>
     <id>http://yoursite.com/2017/02/10/2016年终总结/</id>
     <published>2017-02-10T12:03:00.000Z</published>
-    <updated>2017-03-05T06:32:02.113Z</updated>
+    <updated>2017-03-11T05:55:37.804Z</updated>
     
     <content type="html">&lt;p&gt;  这是这一年的第一个工作周的周六，再不写年终总结2017二月就要过完了~2016是我过得很累的一年，身体也累心也累~因为这一年总是心慌慌，话说回来但充实啊！&lt;/p&gt;
 &lt;a id=&quot;more&quot;&gt;&lt;/a&gt;
@@ -90,7 +139,7 @@
 &lt;p&gt;  很快暑假到来了，学校放假晚还开学早，一个月的实习生谁会要~~~？当时大哥哥说可以去成都，当&lt;br&gt;时觉得到了那里吃喝住好麻烦的，现在想想真的好后悔，当时去了，可能就是另一个样子了，但是世上&lt;br&gt;没有卖后悔药的呀~一切都是最好的安排。在家学习简直就是开玩笑，所以暑假也是晃晃悠悠的过了一个&lt;br&gt;月，我一直心慌慌的好处就是我时刻准备着，所以简历早早的就写好了~为了应对到招聘要求每人都要有一套正装一双高跟鞋，当时觉得很多余，现在想想，真的是太重要了！&lt;/p&gt;
 &lt;p&gt;  很快暑假过完了（毕竟只有一个月的暑假），学习的时候真的是很应付，因为最初老师讲的知识我王原来都讲过了，到后来有个女老师讲还原PSD图还是很好的，那个时候学会了简单的使用PS，在青软待了将近一个月，现在所在的公司来招人了，迎来了第一次面试，紧张但又兴奋，经过三次面试和一次电话面试成功拿到了offer，心里毛毛的，后来陆陆续续又来了很多家，也拿了几个，自己不知道如何做决定，说白了还是不够勇敢、没有主见，因为这个原因我觉得我当时已经把很多机会错过了，记得当时不知道该如何下决定，周边的人还总是说些什么，搞得我跟我爸打电话还哭了一次（这句写出来好丢人，但不写忘了怎么办:-D）在这里告诉你们一个真理，没有什么事是回家一趟解决不了的，如果有那就多呆几天:-D 回家的时候整好是中秋，在家呆了几天做了决定，然后就在国庆时到了上海。&lt;/p&gt;
 &lt;p&gt;  上海有好几个亲戚，来的这里真的很麻烦他们，真的。来到上海时家里人特别不放心，我当时想一个人一辈子吃的苦是有限的，这是我现在必须经历的，人家那些没有亲戚的自己吃苦，我这些苦现在不吃以后也得受阿~但话说回来，如果当时没我哥带我我可能会很惨~~~/(ㄒoㄒ)/是距离上班前几天到的上海，到了后还是玩了几天的南京路步行街、外滩、人民广场阿（全是人）10月8正式上班了~刚到的时候什么也不知道，什么也不懂，问也不知道该怎么开口~于是问师父我有什么可以做的，师父让我写了一个表格，然后两个表格，然后一个页面，慢慢的终于上手了~在后来的日子里真的学会了ajax，明白了什么是异步加载，明白了什么叫数据渲染，原来想的真的太简单了，现在才开始明白点什么叫前端。这次真的接触到项目，感觉除了技术以外，更应该细心，从用户体验出发，学着让代码跟简洁，性能更优化~测试姐姐给我测出那些BUG来，我有时候真的是不愿意承认，为什么这种问题也会有，这种问题也会出现？（捂脸）&lt;/p&gt;
-&lt;p&gt;  新的一年再接再厉，学习更多的技术，get更多的技能！&lt;br&gt;  &lt;li&gt;遇到问题一定要把解决方案记录下来，真的是回头就忘&lt;/li&gt;&lt;br&gt;  &lt;li&gt;一周看一场电影，不一定非得去影院&lt;/li&gt;&lt;br&gt;  &lt;li&gt;把读书这件事给捡起来&lt;/li&gt;&lt;br&gt;  &lt;li&gt;锻jian炼fei身体呀&lt;/li&gt;&lt;br&gt;  &lt;li&gt;想把我王叔拿下（这是什么鬼？）&lt;/li&gt;&lt;/p&gt;
+&lt;p&gt;  新的一年再接再厉，学习更多的技术，get更多的技能！&lt;br&gt;  &lt;li&gt;遇到问题一定要把解决方案记录下来，真的是回头就忘&lt;/li&gt;&lt;br&gt;  &lt;li&gt;一周看一场电影，不一定非得去影院&lt;/li&gt;&lt;br&gt;  &lt;li&gt;把读书这件事给捡起来&lt;/li&gt;&lt;br&gt;  &lt;li&gt;锻jian炼fei身体呀&lt;/li&gt;&lt;/p&gt;
 </content>
     
     <summary type="html">
