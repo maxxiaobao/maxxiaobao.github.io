@@ -1,0 +1,702 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>马小宝</title>
+  <subtitle>前端 生活 学习</subtitle>
+  <link href="/atom.xml" rel="self"/>
+  
+  <link href="http://yoursite.com/"/>
+  <updated>2017-04-16T05:21:38.865Z</updated>
+  <id>http://yoursite.com/</id>
+  
+  <author>
+    <name>MaXiaoBao</name>
+    
+  </author>
+  
+  <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>js控制audio音频的播放与暂停</title>
+    <link href="http://yoursite.com/2017/04/16/js%E6%8E%A7%E5%88%B6audio%E9%9F%B3%E9%A2%91%E7%9A%84%E6%92%AD%E6%94%BE%E4%B8%8E%E6%9A%82%E5%81%9C/"/>
+    <id>http://yoursite.com/2017/04/16/js控制audio音频的播放与暂停/</id>
+    <published>2017-04-16T03:59:50.466Z</published>
+    <updated>2017-04-16T05:21:38.865Z</updated>
+    
+    <content type="html">&lt;p&gt;上周的时候，需要做一个音频列表，后边有播放和暂停控制，真正的audio标签其实是不显示的，所以就要用js控制audio标签。&lt;/p&gt;
+&lt;p&gt;首先你要知道什么是audio标签&lt;a href=&quot;http://www.w3school.com.cn/html5/html5_audio.asp&quot; title=&quot;&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;关于audio&lt;/a&gt;，先上代码&lt;br&gt;&lt;figure class=&quot;highlight html&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;12&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;13&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;14&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;15&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;16&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;17&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;18&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;19&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;20&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;21&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;22&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;23&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;24&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;25&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;26&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;27&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;28&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;29&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;30&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;31&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;32&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;33&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;34&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;35&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;36&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;37&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;38&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;39&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;40&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;41&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;meta&quot;&gt;&amp;lt;!DOCTYPE html&amp;gt;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;tag&quot;&gt;&amp;lt;&lt;span class=&quot;name&quot;&gt;html&lt;/span&gt; &lt;span class=&quot;attr&quot;&gt;lang&lt;/span&gt;=&lt;span class=&quot;string&quot;&gt;&quot;en&quot;&lt;/span&gt;&amp;gt;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;tag&quot;&gt;&amp;lt;&lt;span class=&quot;name&quot;&gt;head&lt;/span&gt;&amp;gt;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	&lt;span class=&quot;tag&quot;&gt;&amp;lt;&lt;span class=&quot;name&quot;&gt;meta&lt;/span&gt; &lt;span class=&quot;attr&quot;&gt;charset&lt;/span&gt;=&lt;span class=&quot;string&quot;&gt;&quot;UTF-8&quot;&lt;/span&gt;&amp;gt;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	&lt;span class=&quot;tag&quot;&gt;&amp;lt;&lt;span class=&quot;name&quot;&gt;title&lt;/span&gt;&amp;gt;&lt;/span&gt;Document&lt;span class=&quot;tag&quot;&gt;&amp;lt;/&lt;span class=&quot;name&quot;&gt;title&lt;/span&gt;&amp;gt;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	&lt;span class=&quot;tag&quot;&gt;&amp;lt;&lt;span class=&quot;name&quot;&gt;style&lt;/span&gt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;undefined&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;		.playSpan&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;			color: #9DE3FE;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;		&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;		.stopSpan&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;			color: #FF3366;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;		&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	&lt;/span&gt;&lt;span class=&quot;tag&quot;&gt;&amp;lt;/&lt;span class=&quot;name&quot;&gt;style&lt;/span&gt;&amp;gt;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;tag&quot;&gt;&amp;lt;/&lt;span class=&quot;name&quot;&gt;head&lt;/span&gt;&amp;gt;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;tag&quot;&gt;&amp;lt;&lt;span class=&quot;name&quot;&gt;body&lt;/span&gt;&amp;gt;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	&lt;span class=&quot;comment&quot;&gt;&amp;lt;!-- 建一个audio标签 --&amp;gt;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	&lt;span class=&quot;tag&quot;&gt;&amp;lt;&lt;span class=&quot;name&quot;&gt;audio&lt;/span&gt; &lt;span class=&quot;attr&quot;&gt;id&lt;/span&gt;=&lt;span class=&quot;string&quot;&gt;&quot;audio&quot;&lt;/span&gt; &lt;span class=&quot;attr&quot;&gt;controls&lt;/span&gt;=&lt;span class=&quot;string&quot;&gt;&quot;controls&quot;&lt;/span&gt; &lt;span class=&quot;attr&quot;&gt;src&lt;/span&gt;=&lt;span class=&quot;string&quot;&gt;&quot;http://www.w3school.com.cn/i/horse.ogg&quot;&lt;/span&gt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;tag&quot;&gt;&amp;lt;/&lt;span class=&quot;name&quot;&gt;audio&lt;/span&gt;&amp;gt;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	&lt;span class=&quot;comment&quot;&gt;&amp;lt;!-- span标签控制音频 --&amp;gt;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	&lt;span class=&quot;tag&quot;&gt;&amp;lt;&lt;span class=&quot;name&quot;&gt;span&lt;/span&gt; &lt;span class=&quot;attr&quot;&gt;class&lt;/span&gt;=&lt;span class=&quot;string&quot;&gt;&quot;playSpan&quot;&lt;/span&gt; &lt;span class=&quot;attr&quot;&gt;onclick&lt;/span&gt;=&lt;span class=&quot;string&quot;&gt;&quot;play()&quot;&lt;/span&gt;&amp;gt;&lt;/span&gt;播放&lt;span class=&quot;tag&quot;&gt;&amp;lt;/&lt;span class=&quot;name&quot;&gt;span&lt;/span&gt;&amp;gt;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	&lt;span class=&quot;tag&quot;&gt;&amp;lt;&lt;span class=&quot;name&quot;&gt;script&lt;/span&gt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;undefined&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;		function play()&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;			var audio = document.getElementById(&quot;audio&quot;);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;			var span = document.getElementsByTagName(&quot;span&quot;)[0];&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;			if(span.className == &quot;playSpan&quot;)&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;				audio.play();&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;				span.innerText = &quot;暂停&quot;;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;				span.className = &quot;stopSpan&quot;; &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;				/*  监听音频播放完成  */&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;				audio.addEventListener(&#39;ended&#39;, function () &amp;#123;  &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	   				span.innerText = &quot;播放&quot;;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;					span.className = &quot;playSpan&quot;; &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;				&amp;#125;, false);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;			&amp;#125;else&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;				audio.pause();&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;				span.innerText = &quot;播放&quot;;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;				span.className = &quot;playSpan&quot;; &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;			&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;		&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	&lt;/span&gt;&lt;span class=&quot;tag&quot;&gt;&amp;lt;/&lt;span class=&quot;name&quot;&gt;script&lt;/span&gt;&amp;gt;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;tag&quot;&gt;&amp;lt;/&lt;span class=&quot;name&quot;&gt;body&lt;/span&gt;&amp;gt;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;tag&quot;&gt;&amp;lt;/&lt;span class=&quot;name&quot;&gt;html&lt;/span&gt;&amp;gt;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
+&lt;a id=&quot;more&quot;&gt;&lt;/a&gt;
+&lt;blockquote&gt;
+&lt;p&gt;其实重点就是那几个方法&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;audio.play()  音频播放&lt;br&gt;audio.pause()  音频暂停&lt;br&gt;audio 的 ended 视频停止&lt;br&gt;audio.currentTime  音频播放时间&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;/blockquote&gt;
+&lt;h4 id=&quot;这个地方有个重点就是上边的方法都标签的原生方法，所以当你使用jQuery拿到标签时，要把jQuery对象转成DOM元素，这样才能调用原生方法&quot;&gt;&lt;a href=&quot;#这个地方有个重点就是上边的方法都标签的原生方法，所以当你使用jQuery拿到标签时，要把jQuery对象转成DOM元素，这样才能调用原生方法&quot; class=&quot;headerlink&quot; title=&quot;这个地方有个重点就是上边的方法都标签的原生方法，所以当你使用jQuery拿到标签时，要把jQuery对象转成DOM元素，这样才能调用原生方法~&quot;&gt;&lt;/a&gt;这个地方有个重点就是上边的方法都标签的原生方法，所以当你使用jQuery拿到标签时，要把jQuery对象转成DOM元素，这样才能调用原生方法~&lt;/h4&gt;&lt;p&gt; 没做的时候觉得很难，做了发现audio也只是和普通的标签，按常理做就好了，恩~。&lt;/p&gt;
+</content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;上周的时候，需要做一个音频列表，后边有播放和暂停控制，真正的audio标签其实是不显示的，所以就要用js控制audio标签。&lt;/p&gt;
+&lt;p&gt;首先你要知道什么是audio标签&lt;a href=&quot;http://www.w3school.com.cn/html5/html5_audio.asp&quot; title=&quot;&quot;&gt;关于audio&lt;/a&gt;，先上代码&lt;br&gt;&lt;figure class=&quot;highlight html&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;12&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;13&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;14&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;15&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;16&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;17&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;18&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;19&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;20&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;21&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;22&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;23&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;24&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;25&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;26&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;27&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;28&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;29&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;30&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;31&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;32&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;33&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;34&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;35&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;36&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;37&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;38&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;39&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;40&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;41&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;meta&quot;&gt;&amp;lt;!DOCTYPE html&amp;gt;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;tag&quot;&gt;&amp;lt;&lt;span class=&quot;name&quot;&gt;html&lt;/span&gt; &lt;span class=&quot;attr&quot;&gt;lang&lt;/span&gt;=&lt;span class=&quot;string&quot;&gt;&quot;en&quot;&lt;/span&gt;&amp;gt;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;tag&quot;&gt;&amp;lt;&lt;span class=&quot;name&quot;&gt;head&lt;/span&gt;&amp;gt;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	&lt;span class=&quot;tag&quot;&gt;&amp;lt;&lt;span class=&quot;name&quot;&gt;meta&lt;/span&gt; &lt;span class=&quot;attr&quot;&gt;charset&lt;/span&gt;=&lt;span class=&quot;string&quot;&gt;&quot;UTF-8&quot;&lt;/span&gt;&amp;gt;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	&lt;span class=&quot;tag&quot;&gt;&amp;lt;&lt;span class=&quot;name&quot;&gt;title&lt;/span&gt;&amp;gt;&lt;/span&gt;Document&lt;span class=&quot;tag&quot;&gt;&amp;lt;/&lt;span class=&quot;name&quot;&gt;title&lt;/span&gt;&amp;gt;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	&lt;span class=&quot;tag&quot;&gt;&amp;lt;&lt;span class=&quot;name&quot;&gt;style&lt;/span&gt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;undefined&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;		.playSpan&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;			color: #9DE3FE;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;		&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;		.stopSpan&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;			color: #FF3366;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;		&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	&lt;/span&gt;&lt;span class=&quot;tag&quot;&gt;&amp;lt;/&lt;span class=&quot;name&quot;&gt;style&lt;/span&gt;&amp;gt;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;tag&quot;&gt;&amp;lt;/&lt;span class=&quot;name&quot;&gt;head&lt;/span&gt;&amp;gt;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;tag&quot;&gt;&amp;lt;&lt;span class=&quot;name&quot;&gt;body&lt;/span&gt;&amp;gt;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	&lt;span class=&quot;comment&quot;&gt;&amp;lt;!-- 建一个audio标签 --&amp;gt;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	&lt;span class=&quot;tag&quot;&gt;&amp;lt;&lt;span class=&quot;name&quot;&gt;audio&lt;/span&gt; &lt;span class=&quot;attr&quot;&gt;id&lt;/span&gt;=&lt;span class=&quot;string&quot;&gt;&quot;audio&quot;&lt;/span&gt; &lt;span class=&quot;attr&quot;&gt;controls&lt;/span&gt;=&lt;span class=&quot;string&quot;&gt;&quot;controls&quot;&lt;/span&gt; &lt;span class=&quot;attr&quot;&gt;src&lt;/span&gt;=&lt;span class=&quot;string&quot;&gt;&quot;http://www.w3school.com.cn/i/horse.ogg&quot;&lt;/span&gt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;tag&quot;&gt;&amp;lt;/&lt;span class=&quot;name&quot;&gt;audio&lt;/span&gt;&amp;gt;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	&lt;span class=&quot;comment&quot;&gt;&amp;lt;!-- span标签控制音频 --&amp;gt;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	&lt;span class=&quot;tag&quot;&gt;&amp;lt;&lt;span class=&quot;name&quot;&gt;span&lt;/span&gt; &lt;span class=&quot;attr&quot;&gt;class&lt;/span&gt;=&lt;span class=&quot;string&quot;&gt;&quot;playSpan&quot;&lt;/span&gt; &lt;span class=&quot;attr&quot;&gt;onclick&lt;/span&gt;=&lt;span class=&quot;string&quot;&gt;&quot;play()&quot;&lt;/span&gt;&amp;gt;&lt;/span&gt;播放&lt;span class=&quot;tag&quot;&gt;&amp;lt;/&lt;span class=&quot;name&quot;&gt;span&lt;/span&gt;&amp;gt;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	&lt;span class=&quot;tag&quot;&gt;&amp;lt;&lt;span class=&quot;name&quot;&gt;script&lt;/span&gt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;undefined&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;		function play()&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;			var audio = document.getElementById(&quot;audio&quot;);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;			var span = document.getElementsByTagName(&quot;span&quot;)[0];&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;			if(span.className == &quot;playSpan&quot;)&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;				audio.play();&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;				span.innerText = &quot;暂停&quot;;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;				span.className = &quot;stopSpan&quot;; &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;				/*  监听音频播放完成  */&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;				audio.addEventListener(&#39;ended&#39;, function () &amp;#123;  &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	   				span.innerText = &quot;播放&quot;;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;					span.className = &quot;playSpan&quot;; &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;				&amp;#125;, false);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;			&amp;#125;else&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;				audio.pause();&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;				span.innerText = &quot;播放&quot;;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;				span.className = &quot;playSpan&quot;; &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;			&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;		&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	&lt;/span&gt;&lt;span class=&quot;tag&quot;&gt;&amp;lt;/&lt;span class=&quot;name&quot;&gt;script&lt;/span&gt;&amp;gt;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;tag&quot;&gt;&amp;lt;/&lt;span class=&quot;name&quot;&gt;body&lt;/span&gt;&amp;gt;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;tag&quot;&gt;&amp;lt;/&lt;span class=&quot;name&quot;&gt;html&lt;/span&gt;&amp;gt;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="javascript" scheme="http://yoursite.com/tags/javascript/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>来一个好看的console.log</title>
+    <link href="http://yoursite.com/2017/03/25/%E6%9D%A5%E4%B8%80%E4%B8%AA%E5%A5%BD%E7%9C%8B%E7%9A%84console.log/"/>
+    <id>http://yoursite.com/2017/03/25/来一个好看的console.log/</id>
+    <published>2017-03-25T06:09:12.256Z</published>
+    <updated>2017-03-25T06:35:41.367Z</updated>
+    
+    <content type="html">&lt;p&gt;每天都在console.log(),在debug的时候确实很好用，无意间在爱奇艺F12了一下，发现原来console还可以有样式的~? 刚给域名续了两年（比收到刚买的包包还开心），接下来看看好看的log吧~&lt;/p&gt;
+&lt;p&gt;—————————————————-先来一条分割线—————————————————————–&lt;/p&gt;
+ &lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;console.log(data);&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt; 一般的我们是这样写的,data一般是个变量或者是个其他什么值，写法简单，打印出来也很简单，他是这样子的&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://7xslws.com1.z0.glb.clouddn.com/img1.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+&lt;p&gt;那么加样式应该怎么写呢？&lt;/p&gt;
+&lt;a id=&quot;more&quot;&gt;&lt;/a&gt;
+&lt;p&gt;举个栗子&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;console.log(&amp;quot;%c我有样式了&amp;quot;, &amp;quot;color: red&amp;quot;);&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;看图就可能更明了了&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://7xslws.com1.z0.glb.clouddn.com/img2.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+&lt;p&gt;所以说要识别文字要在前边加一个%c，这样才知道前边是文字，后边是样式&lt;/p&gt;
+&lt;p&gt;接下来&lt;/p&gt;
+&lt;p&gt;你可能会问&lt;/p&gt;
+&lt;p&gt;我每个字的样式不一样的那怎么办呢&lt;/p&gt;
+&lt;p&gt;哈哈哈哈哈哈&lt;/p&gt;
+&lt;p&gt;我就知道你会这么问&lt;/p&gt;
+&lt;p&gt;看代码&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;console.log(&amp;quot;%c我有样式了 %c我有样式吗？&amp;quot;,&amp;quot;color: red&amp;quot;);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;console.log(&amp;quot;%c我有样式了 %c我有样式吗？&amp;quot;,&amp;quot;color: red&amp;quot;,&amp;quot;color: green&amp;quot;);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;console.log(&amp;quot;%c我有样式了 %c我有样式吗？%c必须的有样式啊&amp;quot;,&amp;quot;color: red&amp;quot;,&amp;quot;color: green&amp;quot;,&amp;quot;color: yellow&amp;quot;);&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;看图&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://7xslws.com1.z0.glb.clouddn.com/img3.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+&lt;p&gt;所以说有几个样式就对应几个%c，没有样式了，%c也就被认为是普通字符了&lt;/p&gt;
+&lt;p&gt;还有这个&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;console.log(&amp;apos;%c彩色文字啊 &amp;apos;, &amp;apos;background-image:-webkit-gradient( linear, left top, right top, color-stop(0, #f22), color-stop(0.15, #f2f), color-stop(0.3, #22f), color-stop(0.45, #2ff), color-stop(0.6, #2f2),color-stop(0.75, #2f2), color-stop(0.9, #ff2), color-stop(1, #f22) );color:transparent;-webkit-background-clip: text;font-size:5em;&amp;apos;);&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;比较有趣的console &lt;a href=&quot;https://www.zhihu.com/question/28831274&quot; title=&quot;&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;https://www.zhihu.com/question/28831274&lt;/a&gt;(他们是怎么找到的？恩？)&lt;/p&gt;
+&lt;p&gt;可以看下console的API&lt;a href=&quot;http://getfirebug.com/wiki/index.php/Console.log&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;http://getfirebug.com/wiki/index.php/Console.log&lt;/a&gt;&lt;br&gt;还有这个&lt;a href=&quot;http://www.css88.com/archives/3678&quot; title=&quot;&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;http://www.css88.com/archives/3678&lt;/a&gt;&lt;/p&gt;
+</content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;每天都在console.log(),在debug的时候确实很好用，无意间在爱奇艺F12了一下，发现原来console还可以有样式的~? 刚给域名续了两年（比收到刚买的包包还开心），接下来看看好看的log吧~&lt;/p&gt;
+&lt;p&gt;—————————————————-先来一条分割线—————————————————————–&lt;/p&gt;
+ &lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;console.log(data);&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt; 一般的我们是这样写的,data一般是个变量或者是个其他什么值，写法简单，打印出来也很简单，他是这样子的&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://7xslws.com1.z0.glb.clouddn.com/img1.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+&lt;p&gt;那么加样式应该怎么写呢？&lt;/p&gt;
+    
+    </summary>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>JavaScript操作数组</title>
+    <link href="http://yoursite.com/2017/03/05/JS%E6%95%B0%E7%BB%84%E6%93%8D%E4%BD%9C/"/>
+    <id>http://yoursite.com/2017/03/05/JS数组操作/</id>
+    <published>2017-03-05T05:31:00.000Z</published>
+    <updated>2017-03-05T06:27:48.163Z</updated>
+    
+    <content type="html">&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;一般用到的就是遍历数组取值完成数据渲染，突然发现不记得数组操作了~学！&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;blockquote&gt;
+&lt;h4 id=&quot;1-数组的新建&quot;&gt;&lt;a href=&quot;#1-数组的新建&quot; class=&quot;headerlink&quot; title=&quot;1 数组的新建&quot;&gt;&lt;/a&gt;1 数组的新建&lt;/h4&gt;&lt;/blockquote&gt;
+&lt;figure class=&quot;highlight javascript&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;var&lt;/span&gt; arrayObj = &lt;span class=&quot;keyword&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;built_in&quot;&gt;Array&lt;/span&gt;();　&lt;span class=&quot;comment&quot;&gt;//创建一个数组&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;var&lt;/span&gt; arrayObj = &lt;span class=&quot;keyword&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;built_in&quot;&gt;Array&lt;/span&gt;([size]);　&lt;span class=&quot;comment&quot;&gt;//创建一个数组并指定长度，注意不是上限，是长度&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;var&lt;/span&gt; arrayObj = &lt;span class=&quot;keyword&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;built_in&quot;&gt;Array&lt;/span&gt;([element0[, element1[, ...[, elementN]]]]);　&lt;span class=&quot;comment&quot;&gt;//创建一个数组并赋值&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;第二种方法虽然指定了数组的长度，但数组的长度是可变的，指定了数组长度为5，当存储6个元素时，数组长度即为6。&lt;/p&gt;
+&lt;a id=&quot;more&quot;&gt;&lt;/a&gt;
+&lt;blockquote&gt;
+&lt;h4 id=&quot;2-数组元素的访问&quot;&gt;&lt;a href=&quot;#2-数组元素的访问&quot; class=&quot;headerlink&quot; title=&quot;2 数组元素的访问&quot;&gt;&lt;/a&gt;2 数组元素的访问&lt;/h4&gt;&lt;/blockquote&gt;
+&lt;figure class=&quot;highlight javascript&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;var&lt;/span&gt; testGetArrValue = arrayObj[i];  &lt;span class=&quot;comment&quot;&gt;//获取元素的值&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;var&lt;/span&gt; arrObj[i] = &lt;span class=&quot;string&quot;&gt;&quot;这是元素的值&quot;&lt;/span&gt;;    &lt;span class=&quot;comment&quot;&gt;//给数组元素赋值&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;pre&gt;&lt;code&gt;i是数组的第（i+1）个元素，因为数组的下标是从0开始的
+&lt;/code&gt;&lt;/pre&gt;&lt;blockquote&gt;
+&lt;h4 id=&quot;3-数组元素的添加&quot;&gt;&lt;a href=&quot;#3-数组元素的添加&quot; class=&quot;headerlink&quot; title=&quot;3 数组元素的添加&quot;&gt;&lt;/a&gt;3 数组元素的添加&lt;/h4&gt;&lt;/blockquote&gt;
+&lt;figure class=&quot;highlight javascript&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;arrObj.push(item);   &lt;span class=&quot;comment&quot;&gt;//将元素添加到数组的尾部，返回新数组的长度&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;arrObj.unshift(item);   &lt;span class=&quot;comment&quot;&gt;//将元素添加到数组的头部，其他元素后移，返回新数组的长度&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;arrObj.splice(index,howmany,item1,.....,itemX);  &lt;span class=&quot;comment&quot;&gt;//index（必填）添加/删除元素的起始位置，howmany（必填）添加/删除元素的个数，item(选填)如果有则添加，没有就删除&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;blockquote&gt;
+&lt;h4 id=&quot;4-数组元素的删除&quot;&gt;&lt;a href=&quot;#4-数组元素的删除&quot; class=&quot;headerlink&quot; title=&quot;4 数组元素的删除&quot;&gt;&lt;/a&gt;4 数组元素的删除&lt;/h4&gt;&lt;/blockquote&gt;
+&lt;figure class=&quot;highlight javascript&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;arrObj.pop();     &lt;span class=&quot;comment&quot;&gt;//移除最后一个元素，返回被除元素的值&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;arrObj.shift();   &lt;span class=&quot;comment&quot;&gt;//移除第一个元素，返回移除元素的值，其他元素前移&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;arrObj.splice(deletePos,deleteCount);&lt;span class=&quot;comment&quot;&gt;//deletePos移除位置，deleteCount移除的数量，返以数组的形式回移除的元素&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;blockquote&gt;
+&lt;h4 id=&quot;5-数组的截取与合并&quot;&gt;&lt;a href=&quot;#5-数组的截取与合并&quot; class=&quot;headerlink&quot; title=&quot;5 数组的截取与合并&quot;&gt;&lt;/a&gt;5 数组的截取与合并&lt;/h4&gt;&lt;/blockquote&gt;
+&lt;figure class=&quot;highlight javascript&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;arrObj.slice(start,end);   &lt;span class=&quot;comment&quot;&gt;//以数组的形式返回从start到end的元素（不包括end），如果end不填则返回star后的所有元素&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;arrObj.concat(item);  &lt;span class=&quot;comment&quot;&gt;//arrObj与item合并为新的数组，item可以是元素、也可以是数组，返回合并后的新数组&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;blockquote&gt;
+&lt;h4 id=&quot;6-数组的拷贝&quot;&gt;&lt;a href=&quot;#6-数组的拷贝&quot; class=&quot;headerlink&quot; title=&quot;6 数组的拷贝&quot;&gt;&lt;/a&gt;6 数组的拷贝&lt;/h4&gt;&lt;/blockquote&gt;
+&lt;figure class=&quot;highlight javascript&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;arrayObj.slice(&lt;span class=&quot;number&quot;&gt;0&lt;/span&gt;); &lt;span class=&quot;comment&quot;&gt;//返回数组的拷贝数组，注意是一个新的数组，不是指向&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;arrayObj.concat(); &lt;span class=&quot;comment&quot;&gt;//返回数组的拷贝数组，注意是一个新的数组，不是指向&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;blockquote&gt;
+&lt;h4 id=&quot;7-数组的排序&quot;&gt;&lt;a href=&quot;#7-数组的排序&quot; class=&quot;headerlink&quot; title=&quot;7 数组的排序&quot;&gt;&lt;/a&gt;7 数组的排序&lt;/h4&gt;&lt;/blockquote&gt;
+&lt;figure class=&quot;highlight javascript&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;arrObj.reverse();  &lt;span class=&quot;comment&quot;&gt;//数组反转，返回数组地址&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;arrObj.sort();  &lt;span class=&quot;comment&quot;&gt;//数组元素排序，返回数组地址&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;blockquote&gt;
+&lt;h4 id=&quot;8-数组元素字符串化&quot;&gt;&lt;a href=&quot;#8-数组元素字符串化&quot; class=&quot;headerlink&quot; title=&quot;8 数组元素字符串化&quot;&gt;&lt;/a&gt;8 数组元素字符串化&lt;/h4&gt;&lt;/blockquote&gt;
+&lt;figure class=&quot;highlight javascript&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;arrayObj.join(separator); &lt;span class=&quot;comment&quot;&gt;//返回字符串，这个字符串将数组的每一个元素值连接在一起，中间用 separator 隔开。&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;toLocaleString 、toString 、valueOf：可以看作是join的特殊用法，不常用&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;blockquote&gt;
+&lt;h4 id=&quot;9-数组的三个属性&quot;&gt;&lt;a href=&quot;#9-数组的三个属性&quot; class=&quot;headerlink&quot; title=&quot;9 数组的三个属性&quot;&gt;&lt;/a&gt;9 数组的三个属性&lt;/h4&gt;&lt;/blockquote&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;length :数组元素的个数，数组的长度是可定义的，但它是可变的&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;prototype :返回对象类型原型的引用。prototype 属性是 object 共有的。&lt;br&gt;objectName.prototype&lt;br&gt;objectName 参数是object对象的名称&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;constructor :表示创建对象的函数。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;文章参考http://blog.csdn.net/xcxinghai/article/details/13502583&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;</content>
+    
+    <summary type="html">
+    
+      &lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;一般用到的就是遍历数组取值完成数据渲染，突然发现不记得数组操作了~学！&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;blockquote&gt;
+&lt;h4 id=&quot;1-数组的新建&quot;&gt;&lt;a href=&quot;#1-数组的新建&quot; class=&quot;headerlink&quot; title=&quot;1 数组的新建&quot;&gt;&lt;/a&gt;1 数组的新建&lt;/h4&gt;&lt;/blockquote&gt;
+&lt;figure class=&quot;highlight javascript&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;var&lt;/span&gt; arrayObj = &lt;span class=&quot;keyword&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;built_in&quot;&gt;Array&lt;/span&gt;();　&lt;span class=&quot;comment&quot;&gt;//创建一个数组&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;var&lt;/span&gt; arrayObj = &lt;span class=&quot;keyword&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;built_in&quot;&gt;Array&lt;/span&gt;([size]);　&lt;span class=&quot;comment&quot;&gt;//创建一个数组并指定长度，注意不是上限，是长度&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;var&lt;/span&gt; arrayObj = &lt;span class=&quot;keyword&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;built_in&quot;&gt;Array&lt;/span&gt;([element0[, element1[, ...[, elementN]]]]);　&lt;span class=&quot;comment&quot;&gt;//创建一个数组并赋值&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;第二种方法虽然指定了数组的长度，但数组的长度是可变的，指定了数组长度为5，当存储6个元素时，数组长度即为6。&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="javascript" scheme="http://yoursite.com/tags/javascript/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>2016年终总结</title>
+    <link href="http://yoursite.com/2017/02/10/2016%E5%B9%B4%E7%BB%88%E6%80%BB%E7%BB%93/"/>
+    <id>http://yoursite.com/2017/02/10/2016年终总结/</id>
+    <published>2017-02-10T12:03:00.000Z</published>
+    <updated>2017-03-11T05:55:37.804Z</updated>
+    
+    <content type="html">&lt;p&gt;  这是这一年的第一个工作周的周六，再不写年终总结2017二月就要过完了~2016是我过得很累的一年，身体也累心也累~因为这一年总是心慌慌，话说回来但充实啊！&lt;/p&gt;
+&lt;a id=&quot;more&quot;&gt;&lt;/a&gt;
+&lt;p&gt;  2016的上半年是我大三的下半学年，当时学习前端还是很积极的，因为想要在暑假找一份实习，上半一直很担心，知道下半年要去基地，知道自己学校背景不够硬参加校招很吃力，所以一直都是心慌慌的。上半年的我无论干什么都好，其实还是一直有保持学习的~在网上参加百度前端学院，好的时候一天两个任务，吃力的时候两到三天一个任务，陆陆续续完成40个任务。&lt;/p&gt;
+&lt;p&gt;  很快暑假到来了，学校放假晚还开学早，一个月的实习生谁会要~~~？当时大哥哥说可以去成都，当&lt;br&gt;时觉得到了那里吃喝住好麻烦的，现在想想真的好后悔，当时去了，可能就是另一个样子了，但是世上&lt;br&gt;没有卖后悔药的呀~一切都是最好的安排。在家学习简直就是开玩笑，所以暑假也是晃晃悠悠的过了一个&lt;br&gt;月，我一直心慌慌的好处就是我时刻准备着，所以简历早早的就写好了~为了应对到招聘要求每人都要有一套正装一双高跟鞋，当时觉得很多余，现在想想，真的是太重要了！&lt;/p&gt;
+&lt;p&gt;  很快暑假过完了（毕竟只有一个月的暑假），学习的时候真的是很应付，因为最初老师讲的知识我王原来都讲过了，到后来有个女老师讲还原PSD图还是很好的，那个时候学会了简单的使用PS，在青软待了将近一个月，现在所在的公司来招人了，迎来了第一次面试，紧张但又兴奋，经过三次面试和一次电话面试成功拿到了offer，心里毛毛的，后来陆陆续续又来了很多家，也拿了几个，自己不知道如何做决定，说白了还是不够勇敢、没有主见，因为这个原因我觉得我当时已经把很多机会错过了，记得当时不知道该如何下决定，周边的人还总是说些什么，搞得我跟我爸打电话还哭了一次（这句写出来好丢人，但不写忘了怎么办:-D）在这里告诉你们一个真理，没有什么事是回家一趟解决不了的，如果有那就多呆几天:-D 回家的时候整好是中秋，在家呆了几天做了决定，然后就在国庆时到了上海。&lt;/p&gt;
+&lt;p&gt;  上海有好几个亲戚，来的这里真的很麻烦他们，真的。来到上海时家里人特别不放心，我当时想一个人一辈子吃的苦是有限的，这是我现在必须经历的，人家那些没有亲戚的自己吃苦，我这些苦现在不吃以后也得受阿~但话说回来，如果当时没我哥带我我可能会很惨~~~/(ㄒoㄒ)/是距离上班前几天到的上海，到了后还是玩了几天的南京路步行街、外滩、人民广场阿（全是人）10月8正式上班了~刚到的时候什么也不知道，什么也不懂，问也不知道该怎么开口~于是问师父我有什么可以做的，师父让我写了一个表格，然后两个表格，然后一个页面，慢慢的终于上手了~在后来的日子里真的学会了ajax，明白了什么是异步加载，明白了什么叫数据渲染，原来想的真的太简单了，现在才开始明白点什么叫前端。这次真的接触到项目，感觉除了技术以外，更应该细心，从用户体验出发，学着让代码跟简洁，性能更优化~测试姐姐给我测出那些BUG来，我有时候真的是不愿意承认，为什么这种问题也会有，这种问题也会出现？（捂脸）&lt;/p&gt;
+&lt;p&gt;  新的一年再接再厉，学习更多的技术，get更多的技能！&lt;br&gt;  &lt;li&gt;遇到问题一定要把解决方案记录下来，真的是回头就忘&lt;/li&gt;&lt;br&gt;  &lt;li&gt;一周看一场电影，不一定非得去影院&lt;/li&gt;&lt;br&gt;  &lt;li&gt;把读书这件事给捡起来&lt;/li&gt;&lt;br&gt;  &lt;li&gt;锻jian炼fei身体呀&lt;/li&gt;&lt;/p&gt;
+</content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;  这是这一年的第一个工作周的周六，再不写年终总结2017二月就要过完了~2016是我过得很累的一年，身体也累心也累~因为这一年总是心慌慌，话说回来但充实啊！&lt;/p&gt;
+    
+    </summary>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>JavaScript事件大全</title>
+    <link href="http://yoursite.com/2016/10/26/JavaScript%E4%BA%8B%E4%BB%B6/"/>
+    <id>http://yoursite.com/2016/10/26/JavaScript事件/</id>
+    <published>2016-10-26T14:16:29.048Z</published>
+    <updated>2016-10-29T13:12:19.279Z</updated>
+    
+    <content type="html">&lt;blockquote&gt;
+&lt;h4 id=&quot;一般事件&quot;&gt;&lt;a href=&quot;#一般事件&quot; class=&quot;headerlink&quot; title=&quot;一般事件&quot;&gt;&lt;/a&gt;一般事件&lt;/h4&gt;&lt;/blockquote&gt;
+&lt;ul&gt;&lt;br&gt;    &lt;li&gt;&lt;strong&gt;onClick——&lt;/strong&gt;鼠标点击事件，多用在某个对象控制的范围内的鼠标点击&lt;/li&gt;&lt;br&gt;    &lt;li&gt;&lt;strong&gt;onDblClick——&lt;/strong&gt;鼠标双击事件&lt;/li&gt;&lt;br&gt;    &lt;li&gt;&lt;strong&gt;onMouseDown——&lt;/strong&gt;鼠标上的按钮被按下了&lt;/li&gt;&lt;br&gt;    &lt;li&gt;&lt;strong&gt;onMouseUp——&lt;/strong&gt;鼠标按下后，松开时激发的事件&lt;/li&gt;&lt;br&gt;    &lt;li&gt;&lt;strong&gt;onMouseOver——&lt;/strong&gt;当鼠标移动到某对象范围的上方时触发的事件&lt;/li&gt;&lt;br&gt;    &lt;li&gt;&lt;strong&gt;onMouseMove——&lt;/strong&gt;鼠标移动时触发的事件&lt;/li&gt;&lt;br&gt;    &lt;li&gt;&lt;strong&gt;onMouseOut——&lt;/strong&gt;当鼠标离开某对象范围时触发的事件&lt;/li&gt;&lt;br&gt;    &lt;li&gt;&lt;strong&gt;onKeyPress——&lt;/strong&gt;当键盘上的某个键被按下并且释放时触发的事件.[注意:页面内必须有被聚焦的对象]&lt;/li&gt;&lt;br&gt;    &lt;li&gt;&lt;strong&gt;onKeyDown——&lt;/strong&gt;当键盘上某个按键被按下时触发的事件[注意:页面内必须有被聚焦的对象]&lt;/li&gt;&lt;br&gt;    &lt;li&gt;&lt;strong&gt;onKeyUp——&lt;/strong&gt;当键盘上某个按键被按放开时触发的事件[注意:页面内必须有被聚焦的对象]&lt;/li&gt;&lt;br&gt;&lt;/ul&gt;&lt;br&gt;&lt;a id=&quot;more&quot;&gt;&lt;/a&gt;&lt;br&gt;&amp;gt; #### 页面相关事件&lt;br&gt;&lt;br&gt;&lt;ul&gt;&lt;br&gt;    &lt;li&gt;&lt;strong&gt;onAbort——&lt;/strong&gt;图片在下载时被用户中断&lt;/li&gt;&lt;br&gt;    &lt;li&gt;&lt;strong&gt;onBeforeUnload——&lt;/strong&gt;当前页面的内容将要被改变时触发的事件&lt;/li&gt;&lt;br&gt;    &lt;li&gt;&lt;strong&gt;onError——&lt;/strong&gt;捕抓当前页面因为某种原因而出现的错误，如脚本错误与外部数据引用的错误&lt;/li&gt;&lt;br&gt;    &lt;li&gt;&lt;strong&gt;onLoad——&lt;/strong&gt;页面内空完成传送到浏览器时触发的事件，包括外部文件引入完成&lt;/li&gt;&lt;br&gt;    &lt;li&gt;&lt;strong&gt;onMove——&lt;/strong&gt;浏览器的窗口被移动时触发的事件&lt;/li&gt;&lt;br&gt;    &lt;li&gt;&lt;strong&gt;onResize——&lt;/strong&gt;当浏览器的窗口大小被改变时触发的事件&lt;/li&gt;&lt;br&gt;    &lt;li&gt;&lt;strong&gt;onScroll——&lt;/strong&gt;浏览器的滚动条位置发生变化时触发的事件&lt;/li&gt;&lt;br&gt;    &lt;li&gt;&lt;strong&gt;onStop——&lt;/strong&gt;浏览器的停止按钮被按下时触发的事件或者正在下载的文件被中断&lt;/li&gt;&lt;br&gt;    &lt;li&gt;&lt;strong&gt;onReset——&lt;/strong&gt;当表单中RESET的属性被激发时触发的事件&lt;/li&gt;&lt;br&gt;    &lt;li&gt;&lt;strong&gt;onSubmit——&lt;/strong&gt;一个表单被递交时触发的事件&lt;/li&gt;&lt;br&gt;&lt;/ul&gt;
+
+&lt;blockquote&gt;
+&lt;h4 id=&quot;表单相关事件&quot;&gt;&lt;a href=&quot;#表单相关事件&quot; class=&quot;headerlink&quot; title=&quot;表单相关事件&quot;&gt;&lt;/a&gt;表单相关事件&lt;/h4&gt;&lt;/blockquote&gt;
+&lt;ul&gt;&lt;br&gt;    &lt;li&gt;&lt;strong&gt;onBlur——&lt;/strong&gt;当前元素失去焦点时触发的事件 [鼠标与键盘的触发均可]&lt;/li&gt;&lt;br&gt;    &lt;li&gt;&lt;strong&gt;onChange——&lt;/strong&gt;当前元素失去焦点并且元素的内容发生改变而触发的事件 [鼠标与键盘的触发均可]&lt;/li&gt;&lt;br&gt;    &lt;li&gt;&lt;strong&gt;onFocus——&lt;/strong&gt;当某个元素获得焦点时触发的事件&lt;/li&gt;&lt;br&gt;&lt;/ul&gt;
+
+&lt;blockquote&gt;
+&lt;h4 id=&quot;滚动字幕事件&quot;&gt;&lt;a href=&quot;#滚动字幕事件&quot; class=&quot;headerlink&quot; title=&quot;滚动字幕事件&quot;&gt;&lt;/a&gt;滚动字幕事件&lt;/h4&gt;&lt;/blockquote&gt;
+&lt;li&gt;&lt;strong&gt;onBounce——&lt;/strong&gt;在Marquee内的内容移动至Marquee显示范围之外时触发的事件&lt;/li&gt;&lt;br&gt;&lt;li&gt;&lt;strong&gt;onFinish——&lt;/strong&gt;当Marquee元素完成需要显示的内容后触发的事件&lt;/li&gt;&lt;br&gt;&lt;li&gt;&lt;strong&gt;onStart——&lt;/strong&gt;当Marquee元素开始显示内容时触发的事件&lt;/li&gt;
+
+&lt;blockquote&gt;
+&lt;h4 id=&quot;编辑事件&quot;&gt;&lt;a href=&quot;#编辑事件&quot; class=&quot;headerlink&quot; title=&quot;编辑事件&quot;&gt;&lt;/a&gt;编辑事件&lt;/h4&gt;&lt;/blockquote&gt;
+&lt;ul&gt;&lt;br&gt;    &lt;li&gt;&lt;strong&gt;onBeforeCopy——&lt;/strong&gt;当页面当前的被选择内容将要复制到浏览者系统的剪贴板前触发的事件&lt;/li&gt;&lt;br&gt;     &lt;li&gt;&lt;strong&gt;onBeforeCut——&lt;/strong&gt;当页面中的一部分或者全部的内容将被移离当前页面[剪贴]并移动到浏览者的系统剪&lt;/li&gt;&lt;br&gt;&lt;/ul&gt;
+
+&lt;blockquote&gt;
+&lt;h4 id=&quot;数据绑定&quot;&gt;&lt;a href=&quot;#数据绑定&quot; class=&quot;headerlink&quot; title=&quot;数据绑定&quot;&gt;&lt;/a&gt;数据绑定&lt;/h4&gt;&lt;/blockquote&gt;
+&lt;ul&gt;&lt;br&gt;    &lt;li&gt;&lt;strong&gt;onAfterUpdate——&lt;/strong&gt;当数据完成由数据源到对象的传送时触发的事件&lt;/li&gt;&lt;br&gt;    &lt;li&gt;&lt;strong&gt;onCellChange——&lt;/strong&gt;当数据来源发生变化时&lt;/li&gt;&lt;br&gt;    &lt;li&gt;&lt;strong&gt;onDataAvailable——&lt;/strong&gt;当数据接收完成时触发事件&lt;/li&gt;&lt;br&gt;    &lt;li&gt;&lt;strong&gt;onDatasetChanged——&lt;/strong&gt;数据在数据源发生变化时触发的事件&lt;/li&gt;&lt;br&gt;&lt;/ul&gt;
+
+
+&lt;blockquote&gt;
+&lt;h4 id=&quot;外部事件&quot;&gt;&lt;a href=&quot;#外部事件&quot; class=&quot;headerlink&quot; title=&quot;外部事件&quot;&gt;&lt;/a&gt;外部事件&lt;/h4&gt;&lt;/blockquote&gt;
+&lt;ul&gt;&lt;br&gt;    &lt;li&gt;&lt;strong&gt;onAfterPrint——&lt;/strong&gt;当文档被打印后触发的事件&lt;/li&gt;&lt;br&gt;    &lt;li&gt;&lt;strong&gt;onBeforePrint——&lt;/strong&gt;当文档即将打印时触发的事件&lt;/li&gt;&lt;br&gt;    &lt;li&gt;&lt;strong&gt;onFilterChange——&lt;/strong&gt;当某个对象的滤镜效果发生变化时触发的事件&lt;/li&gt;&lt;br&gt;    &lt;li&gt;&lt;strong&gt;onPropertyChange——&lt;/strong&gt;当对象的属性之一发生变化时触发的事件&lt;/li&gt;&lt;br&gt;    &lt;li&gt;&lt;strong&gt;onReadyStateChange——&lt;/strong&gt;当对象的初始化属性值发生变化时触发&lt;/li&gt;&lt;br&gt;&lt;/ul&gt;
+
+&lt;h6&gt;突然发现经常用到触发事件，就总结了一下~&lt;a href=&quot;http://www.jb51.net/article/28772.htm&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;文章参考&lt;/a&gt;&lt;/h6&gt;
+
+</content>
+    
+    <summary type="html">
+    
+      &lt;blockquote&gt;
+&lt;h4 id=&quot;一般事件&quot;&gt;&lt;a href=&quot;#一般事件&quot; class=&quot;headerlink&quot; title=&quot;一般事件&quot;&gt;&lt;/a&gt;一般事件&lt;/h4&gt;&lt;/blockquote&gt;
+&lt;ul&gt;&lt;br&gt;    &lt;li&gt;&lt;strong&gt;onClick——&lt;/strong&gt;鼠标点击事件，多用在某个对象控制的范围内的鼠标点击&lt;/li&gt;&lt;br&gt;    &lt;li&gt;&lt;strong&gt;onDblClick——&lt;/strong&gt;鼠标双击事件&lt;/li&gt;&lt;br&gt;    &lt;li&gt;&lt;strong&gt;onMouseDown——&lt;/strong&gt;鼠标上的按钮被按下了&lt;/li&gt;&lt;br&gt;    &lt;li&gt;&lt;strong&gt;onMouseUp——&lt;/strong&gt;鼠标按下后，松开时激发的事件&lt;/li&gt;&lt;br&gt;    &lt;li&gt;&lt;strong&gt;onMouseOver——&lt;/strong&gt;当鼠标移动到某对象范围的上方时触发的事件&lt;/li&gt;&lt;br&gt;    &lt;li&gt;&lt;strong&gt;onMouseMove——&lt;/strong&gt;鼠标移动时触发的事件&lt;/li&gt;&lt;br&gt;    &lt;li&gt;&lt;strong&gt;onMouseOut——&lt;/strong&gt;当鼠标离开某对象范围时触发的事件&lt;/li&gt;&lt;br&gt;    &lt;li&gt;&lt;strong&gt;onKeyPress——&lt;/strong&gt;当键盘上的某个键被按下并且释放时触发的事件.[注意:页面内必须有被聚焦的对象]&lt;/li&gt;&lt;br&gt;    &lt;li&gt;&lt;strong&gt;onKeyDown——&lt;/strong&gt;当键盘上某个按键被按下时触发的事件[注意:页面内必须有被聚焦的对象]&lt;/li&gt;&lt;br&gt;    &lt;li&gt;&lt;strong&gt;onKeyUp——&lt;/strong&gt;当键盘上某个按键被按放开时触发的事件[注意:页面内必须有被聚焦的对象]&lt;/li&gt;&lt;br&gt;&lt;/ul&gt;&lt;br&gt;
+    
+    </summary>
+    
+    
+      <category term="JavaScript" scheme="http://yoursite.com/tags/JavaScript/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>文本框跟随鼠标移动</title>
+    <link href="http://yoursite.com/2016/07/20/%E6%96%87%E6%9C%AC%E6%A1%86%E8%B7%9F%E9%9A%8F%E9%BC%A0%E6%A0%87%E7%A7%BB%E5%8A%A8/"/>
+    <id>http://yoursite.com/2016/07/20/文本框跟随鼠标移动/</id>
+    <published>2016-07-20T08:56:52.414Z</published>
+    <updated>2016-07-21T00:34:29.819Z</updated>
+    
+    <content type="html">&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;关于这个知识点，我原来看过三遍总觉得自己学会了，今天再用发现还得查资料，这样可不行啊！&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;h4 id=&quot;实现效果–-gt-查看效果：&quot;&gt;&lt;a href=&quot;#实现效果–-gt-查看效果：&quot; class=&quot;headerlink&quot; title=&quot;实现效果–&amp;gt;查看效果：&quot;&gt;&lt;/a&gt;实现效果–&amp;gt;&lt;a href=&quot;http://maxiuli.com/LIFE/step3/task37/index.html&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;查看效果&lt;/a&gt;：&lt;/h4&gt;&lt;p&gt;鼠标点击文本框的标题，文本框跟着鼠标移动，鼠标松开文本框不再移动。&lt;br&gt;&lt;img src=&quot;http://7xslws.com1.z0.glb.clouddn.com/QQ%E5%9B%BE%E7%89%8720160720193151.png&quot;&gt;&lt;/p&gt;
+&lt;h4 id=&quot;知识点：&quot;&gt;&lt;a href=&quot;#知识点：&quot; class=&quot;headerlink&quot; title=&quot;知识点：&quot;&gt;&lt;/a&gt;知识点：&lt;/h4&gt;&lt;a id=&quot;more&quot;&gt;&lt;/a&gt;
+&lt;ul&gt;&lt;br&gt;&lt;li&gt;event.clientX： 事件属性返回当事件被触发时鼠标指针向对于浏览器页面（或客户区）的水平坐标&lt;/li&gt;&lt;br&gt;&lt;li&gt;event.clientY:事件属性返回当事件被触发时鼠标指针向对于浏览器页面（客户区）的垂直坐标。&lt;/li&gt;&lt;br&gt;&lt;li&gt;offsetLeft:元素的左外边框到包含元素的左内边框的像素距离。&lt;br&gt;&lt;/li&gt;&lt;br&gt;&lt;li&gt;offsetLeft:元素的左外边框到包含元素的左内边框的像素距离。&lt;br&gt;&lt;/li&gt;&lt;br&gt;&lt;li&gt;offsetTop:元素的上外边框到包含元素的上内边框的像素距离。&lt;/li&gt;&lt;br&gt;&lt;li&gt;onmousedown:鼠标按键按下事件&lt;/li&gt;&lt;br&gt;&lt;li&gt;onmouseup:鼠标按键弹起事件&lt;/li&gt;&lt;br&gt;&lt;li&gt;onmousemove:鼠标移动事件&lt;/li&gt;&lt;br&gt;&lt;/ul&gt;
+
+&lt;h4 id=&quot;整体思路&quot;&gt;&lt;a href=&quot;#整体思路&quot; class=&quot;headerlink&quot; title=&quot;整体思路&quot;&gt;&lt;/a&gt;整体思路&lt;/h4&gt;&lt;p&gt; (感觉一张好图胜过千言万语)&lt;br&gt;&lt;img src=&quot;http://7xslws.com1.z0.glb.clouddn.com/QQ%E5%9B%BE%E7%89%8720160720195603.png&quot;&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;鼠标点下的时候执行 ommousedown，计算clientX，clientY,offsetLeft,offsetTop&lt;br&gt;（此时clientX，clientY是点击时的坐标）&lt;br&gt;求出disX = clientX - offsetLeft,disY = clientY - offsetTop&lt;br&gt;执行 onmousemove，对弹框定位 left = clientX - disX，top = clientY - disY&lt;br&gt;（此时clientX和clientY是移动后的坐标，是随时变化的）&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h4 id=&quot;上代码&quot;&gt;&lt;a href=&quot;#上代码&quot; class=&quot;headerlink&quot; title=&quot;上代码&quot;&gt;&lt;/a&gt;上代码&lt;/h4&gt;&lt;figure class=&quot;highlight javascript&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;12&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;13&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;14&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;15&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;16&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;17&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;title&quot;&gt;move&lt;/span&gt;(&lt;span class=&quot;params&quot;&gt;&lt;/span&gt;) &lt;/span&gt;&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	&lt;span class=&quot;keyword&quot;&gt;var&lt;/span&gt; oTitle = &lt;span class=&quot;built_in&quot;&gt;document&lt;/span&gt;.getElementById(&lt;span class=&quot;string&quot;&gt;&quot;title&quot;&lt;/span&gt;);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	&lt;span class=&quot;comment&quot;&gt;//点击时&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	oTitle.onmousedown = &lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;function&lt;/span&gt;(&lt;span class=&quot;params&quot;&gt;event&lt;/span&gt;) &lt;/span&gt;&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;		&lt;span class=&quot;keyword&quot;&gt;var&lt;/span&gt; disX = event.clientX - tip.offsetLeft;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;		&lt;span class=&quot;keyword&quot;&gt;var&lt;/span&gt; disY = event.clientY - tip.offsetTop;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;		&lt;span class=&quot;comment&quot;&gt;//移动&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;		&lt;span class=&quot;built_in&quot;&gt;document&lt;/span&gt;.onmousemove = &lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;function&lt;/span&gt;(&lt;span class=&quot;params&quot;&gt;event&lt;/span&gt;) &lt;/span&gt;&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;		tip.style.left = event.clientX + &lt;span class=&quot;number&quot;&gt;125&lt;/span&gt; - x + &lt;span class=&quot;string&quot;&gt;&quot;px&quot;&lt;/span&gt;;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;		tip.style.top = event.clientY + &lt;span class=&quot;number&quot;&gt;75&lt;/span&gt; - y + &lt;span class=&quot;string&quot;&gt;&quot;px&quot;&lt;/span&gt;;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	&lt;span class=&quot;comment&quot;&gt;//弹起&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	oTitle.onmouseup = &lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;function&lt;/span&gt;(&lt;span class=&quot;params&quot;&gt;&lt;/span&gt;)&lt;/span&gt;&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;		&lt;span class=&quot;built_in&quot;&gt;document&lt;/span&gt;.onmousemove = &lt;span class=&quot;literal&quot;&gt;null&lt;/span&gt;;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;h4 id=&quot;其他&quot;&gt;&lt;a href=&quot;#其他&quot; class=&quot;headerlink&quot; title=&quot;其他&quot;&gt;&lt;/a&gt;其他&lt;/h4&gt;&lt;blockquote&gt;
+&lt;p&gt;在JS中修改关于尺寸时要加单位“px”&lt;br&gt;这样弹框可以拉到屏幕以外的位置，可以根据自己的需求更改&lt;br&gt;可以参考课程&lt;a href=&quot;http://www.imooc.com/learn/138&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;DOM事件揭秘第四章&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+</content>
+    
+    <summary type="html">
+    
+      &lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;关于这个知识点，我原来看过三遍总觉得自己学会了，今天再用发现还得查资料，这样可不行啊！&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;h4 id=&quot;实现效果–-gt-查看效果：&quot;&gt;&lt;a href=&quot;#实现效果–-gt-查看效果：&quot; class=&quot;headerlink&quot; title=&quot;实现效果–&amp;gt;查看效果：&quot;&gt;&lt;/a&gt;实现效果–&amp;gt;&lt;a href=&quot;http://maxiuli.com/LIFE/step3/task37/index.html&quot;&gt;查看效果&lt;/a&gt;：&lt;/h4&gt;&lt;p&gt;鼠标点击文本框的标题，文本框跟着鼠标移动，鼠标松开文本框不再移动。&lt;br&gt;&lt;img src=&quot;http://7xslws.com1.z0.glb.clouddn.com/QQ%E5%9B%BE%E7%89%8720160720193151.png&quot;&gt;&lt;/p&gt;
+&lt;h4 id=&quot;知识点：&quot;&gt;&lt;a href=&quot;#知识点：&quot; class=&quot;headerlink&quot; title=&quot;知识点：&quot;&gt;&lt;/a&gt;知识点：&lt;/h4&gt;
+    
+    </summary>
+    
+    
+      <category term="JavaScript" scheme="http://yoursite.com/tags/JavaScript/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>JavaScript实现文本框显示行号</title>
+    <link href="http://yoursite.com/2016/06/02/JavaScript%E5%AE%9E%E7%8E%B0%E6%96%87%E6%9C%AC%E6%A1%86%E6%98%BE%E7%A4%BA%E8%A1%8C%E5%8F%B7/"/>
+    <id>http://yoursite.com/2016/06/02/JavaScript实现文本框显示行号/</id>
+    <published>2016-06-02T08:03:44.695Z</published>
+    <updated>2016-06-02T13:49:25.336Z</updated>
+    
+    <content type="html">&lt;h4 id=&quot;如下图所示，用此布局&quot;&gt;&lt;a href=&quot;#如下图所示，用此布局&quot; class=&quot;headerlink&quot; title=&quot;如下图所示，用此布局&quot;&gt;&lt;/a&gt;如下图所示，用此布局&lt;/h4&gt;&lt;p&gt;&lt;img src=&quot;http://7xslws.com1.z0.glb.clouddn.com/textarea2.png&quot;&gt;&lt;/p&gt;
+&lt;h4 id=&quot;Body部分主要内容&quot;&gt;&lt;a href=&quot;#Body部分主要内容&quot; class=&quot;headerlink&quot; title=&quot;Body部分主要内容&quot;&gt;&lt;/a&gt;Body部分主要内容&lt;/h4&gt;&lt;figure class=&quot;highlight html&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;tag&quot;&gt;&amp;lt;&lt;span class=&quot;name&quot;&gt;div&lt;/span&gt; &lt;span class=&quot;attr&quot;&gt;id&lt;/span&gt;=&lt;span class=&quot;string&quot;&gt;&quot;box&quot;&lt;/span&gt;&amp;gt;&lt;/span&gt;     // div ---&amp;gt; ③&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	&lt;span class=&quot;tag&quot;&gt;&amp;lt;&lt;span class=&quot;name&quot;&gt;div&lt;/span&gt; &lt;span class=&quot;attr&quot;&gt;id&lt;/span&gt;=&lt;span class=&quot;string&quot;&gt;&quot;line&quot;&lt;/span&gt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;tag&quot;&gt;&amp;lt;/&lt;span class=&quot;name&quot;&gt;div&lt;/span&gt;&amp;gt;&lt;/span&gt;    // div ---&amp;gt; ①&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	&lt;span class=&quot;tag&quot;&gt;&amp;lt;&lt;span class=&quot;name&quot;&gt;textarea&lt;/span&gt; &lt;span class=&quot;attr&quot;&gt;id&lt;/span&gt;=&lt;span class=&quot;string&quot;&gt;&quot;textarea&quot;&lt;/span&gt; &lt;span class=&quot;attr&quot;&gt;rows&lt;/span&gt;=&lt;span class=&quot;string&quot;&gt;&quot;5&quot;&lt;/span&gt; &lt;span class=&quot;attr&quot;&gt;cols&lt;/span&gt;=&lt;span class=&quot;string&quot;&gt;&quot;40&quot;&lt;/span&gt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;tag&quot;&gt;&amp;lt;/&lt;span class=&quot;name&quot;&gt;textarea&lt;/span&gt;&amp;gt;&lt;/span&gt;   // div ---&amp;gt; ②&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;tag&quot;&gt;&amp;lt;/&lt;span class=&quot;name&quot;&gt;div&lt;/span&gt;&amp;gt;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;a id=&quot;more&quot;&gt;&lt;/a&gt;
+&lt;h4 id=&quot;css样式设置&quot;&gt;&lt;a href=&quot;#css样式设置&quot; class=&quot;headerlink&quot; title=&quot;css样式设置&quot;&gt;&lt;/a&gt;css样式设置&lt;/h4&gt;&lt;figure class=&quot;highlight css&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;12&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;13&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;14&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;15&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;16&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;17&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;18&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;19&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;20&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;21&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;22&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;23&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;24&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;25&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;26&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;27&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;28&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;*&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;attribute&quot;&gt;margin&lt;/span&gt;: &lt;span class=&quot;number&quot;&gt;0&lt;/span&gt;;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;attribute&quot;&gt;padding&lt;/span&gt;: &lt;span class=&quot;number&quot;&gt;0&lt;/span&gt;;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;selector-id&quot;&gt;#box&lt;/span&gt;&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	&lt;span class=&quot;attribute&quot;&gt;height&lt;/span&gt;: &lt;span class=&quot;number&quot;&gt;100px&lt;/span&gt;;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	&lt;span class=&quot;attribute&quot;&gt;margin-left&lt;/span&gt;: &lt;span class=&quot;number&quot;&gt;40%&lt;/span&gt;;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	&lt;span class=&quot;attribute&quot;&gt;margin-top&lt;/span&gt;: &lt;span class=&quot;number&quot;&gt;20%&lt;/span&gt;;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;selector-id&quot;&gt;#line&lt;/span&gt;&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	&lt;span class=&quot;attribute&quot;&gt;width&lt;/span&gt;: &lt;span class=&quot;number&quot;&gt;20px&lt;/span&gt;;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	&lt;span class=&quot;attribute&quot;&gt;height&lt;/span&gt;: &lt;span class=&quot;number&quot;&gt;100px&lt;/span&gt;;     &lt;span class=&quot;comment&quot;&gt;/* !!! ①的高度 */&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	&lt;span class=&quot;attribute&quot;&gt;float&lt;/span&gt;: left;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	&lt;span class=&quot;attribute&quot;&gt;background-color&lt;/span&gt;: &lt;span class=&quot;number&quot;&gt;#ccc&lt;/span&gt;;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	&lt;span class=&quot;attribute&quot;&gt;overflow&lt;/span&gt;: hidden;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;selector-id&quot;&gt;#textarea&lt;/span&gt;&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	&lt;span class=&quot;attribute&quot;&gt;border-left&lt;/span&gt;: none;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	&lt;span class=&quot;attribute&quot;&gt;line-height&lt;/span&gt;: &lt;span class=&quot;number&quot;&gt;20px&lt;/span&gt;;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	&lt;span class=&quot;attribute&quot;&gt;height&lt;/span&gt;: &lt;span class=&quot;number&quot;&gt;98px&lt;/span&gt;;      &lt;span class=&quot;comment&quot;&gt;/* !!! ②的高度，因为边框所以 -2 */&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;selector-class&quot;&gt;.row&lt;/span&gt;&amp;#123;                 &lt;span class=&quot;comment&quot;&gt;/* 显示行数的div */&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	&lt;span class=&quot;attribute&quot;&gt;color&lt;/span&gt;: &lt;span class=&quot;number&quot;&gt;#999&lt;/span&gt;;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	&lt;span class=&quot;attribute&quot;&gt;text-align&lt;/span&gt;: center;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	&lt;span class=&quot;attribute&quot;&gt;width&lt;/span&gt;: &lt;span class=&quot;number&quot;&gt;20px&lt;/span&gt;;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	&lt;span class=&quot;attribute&quot;&gt;font-size&lt;/span&gt;: &lt;span class=&quot;number&quot;&gt;15px&lt;/span&gt;;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	&lt;span class=&quot;attribute&quot;&gt;height&lt;/span&gt;: &lt;span class=&quot;number&quot;&gt;20px&lt;/span&gt;;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;h4 id=&quot;JavaScript实现部分&quot;&gt;&lt;a href=&quot;#JavaScript实现部分&quot; class=&quot;headerlink&quot; title=&quot;JavaScript实现部分&quot;&gt;&lt;/a&gt;JavaScript实现部分&lt;/h4&gt;&lt;figure class=&quot;highlight javascript&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;12&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;13&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;14&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;15&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;16&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;17&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;18&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;19&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;20&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;21&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;22&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;23&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;24&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;25&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;26&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;27&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;28&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;29&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;30&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;31&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;32&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;33&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;34&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;35&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;36&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;37&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;38&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;39&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;40&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;41&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;42&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&amp;lt;script type=&lt;span class=&quot;string&quot;&gt;&quot;text/javascript&quot;&lt;/span&gt;&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;		&lt;span class=&quot;built_in&quot;&gt;window&lt;/span&gt;.onload = &lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;function&lt;/span&gt; (&lt;span class=&quot;params&quot;&gt;&lt;/span&gt;) &lt;/span&gt;&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;			&lt;span class=&quot;keyword&quot;&gt;var&lt;/span&gt; textArea = &lt;span class=&quot;built_in&quot;&gt;document&lt;/span&gt;.getElementById(&lt;span class=&quot;string&quot;&gt;&quot;textarea&quot;&lt;/span&gt;);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;			&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;			addHandler(textArea,&lt;span class=&quot;string&quot;&gt;&#39;keyup&#39;&lt;/span&gt;,&lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;function&lt;/span&gt;(&lt;span class=&quot;params&quot;&gt;&lt;/span&gt;)&lt;/span&gt;&amp;#123;    &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;				onKeyUp(textArea);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;			&amp;#125;); &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;			&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;			addHandler(textArea,&lt;span class=&quot;string&quot;&gt;&#39;scroll&#39;&lt;/span&gt;,&lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;function&lt;/span&gt;(&lt;span class=&quot;params&quot;&gt;&lt;/span&gt;)&lt;/span&gt;&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;				onScrollChange(textArea);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;			&amp;#125;)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;		&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;		&lt;span class=&quot;comment&quot;&gt;//键盘点一下就判断换行情况&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;		&lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;title&quot;&gt;onKeyUp&lt;/span&gt;(&lt;span class=&quot;params&quot;&gt;textArea&lt;/span&gt;)&lt;/span&gt;&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;			&lt;span class=&quot;keyword&quot;&gt;var&lt;/span&gt; line = &lt;span class=&quot;built_in&quot;&gt;document&lt;/span&gt;.getElementById(&lt;span class=&quot;string&quot;&gt;&quot;line&quot;&lt;/span&gt;);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;			line.innerHTML = &lt;span class=&quot;string&quot;&gt;&quot;&quot;&lt;/span&gt;;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;			&lt;span class=&quot;keyword&quot;&gt;var&lt;/span&gt; text = textArea.value.split(&lt;span class=&quot;string&quot;&gt;&quot;\n&quot;&lt;/span&gt;);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;			&lt;span class=&quot;keyword&quot;&gt;for&lt;/span&gt;(&lt;span class=&quot;keyword&quot;&gt;var&lt;/span&gt; i=&lt;span class=&quot;number&quot;&gt;0&lt;/span&gt;;i&amp;lt;text.length;i++)&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;				&lt;span class=&quot;keyword&quot;&gt;var&lt;/span&gt; row = &lt;span class=&quot;built_in&quot;&gt;document&lt;/span&gt;.createElement(&lt;span class=&quot;string&quot;&gt;&quot;div&quot;&lt;/span&gt;);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;				&lt;span class=&quot;keyword&quot;&gt;if&lt;/span&gt;(i==&lt;span class=&quot;number&quot;&gt;0&lt;/span&gt;)&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;					row.id = &lt;span class=&quot;string&quot;&gt;&quot;fir&quot;&lt;/span&gt;;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;				&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;				row.className = &lt;span class=&quot;string&quot;&gt;&quot;row&quot;&lt;/span&gt;;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;				row.innerHTML = i+&lt;span class=&quot;number&quot;&gt;1&lt;/span&gt;;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;				line.appendChild(row);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;			&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;			&lt;span class=&quot;built_in&quot;&gt;document&lt;/span&gt;.getElementById(&lt;span class=&quot;string&quot;&gt;&quot;fir&quot;&lt;/span&gt;).style.marginTop = -textArea.scrollTop + &lt;span class=&quot;string&quot;&gt;&quot;px&quot;&lt;/span&gt;;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;		&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;		&lt;span class=&quot;comment&quot;&gt;//文本框滚动条滚动行号也跟着滚动&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;		&lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;title&quot;&gt;onScrollChange&lt;/span&gt;(&lt;span class=&quot;params&quot;&gt;textArea&lt;/span&gt;)&lt;/span&gt;&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;			&lt;span class=&quot;built_in&quot;&gt;document&lt;/span&gt;.getElementById(&lt;span class=&quot;string&quot;&gt;&quot;fir&quot;&lt;/span&gt;).style.marginTop = -textArea.scrollTop + &lt;span class=&quot;string&quot;&gt;&quot;px&quot;&lt;/span&gt;;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;		&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;		&lt;span class=&quot;comment&quot;&gt;//考虑浏览器事件添加&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;		&lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;title&quot;&gt;addHandler&lt;/span&gt;(&lt;span class=&quot;params&quot;&gt;element,type,handler&lt;/span&gt;)&lt;/span&gt;&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;			&lt;span class=&quot;keyword&quot;&gt;if&lt;/span&gt;(element.addEventLister)&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;				element.addEventLister(type,handler,&lt;span class=&quot;literal&quot;&gt;false&lt;/span&gt;);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;			&amp;#125;&lt;span class=&quot;keyword&quot;&gt;else&lt;/span&gt; &lt;span class=&quot;keyword&quot;&gt;if&lt;/span&gt;(element.attachEvent)&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;				element.attachEvent(&lt;span class=&quot;string&quot;&gt;&#39;on&#39;&lt;/span&gt;+type,handler);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;			&amp;#125;&lt;span class=&quot;keyword&quot;&gt;else&lt;/span&gt; &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;				element[&lt;span class=&quot;string&quot;&gt;&#39;on&#39;&lt;/span&gt;+type] = handler;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;			&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;		&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;h4 id=&quot;总结&quot;&gt;&lt;a href=&quot;#总结&quot; class=&quot;headerlink&quot; title=&quot;总结&quot;&gt;&lt;/a&gt;总结&lt;/h4&gt;&lt;p&gt;在百度前端学院任务35时需要完成这样一个效果，开始时觉得很难，真正做时发现不是任务难，是思路不清晰和基础不牢固。&lt;/p&gt;
+&lt;p&gt;开始判断行数时想的是&lt;code&gt;change&lt;/code&gt;，如果textarea改变了就判断有几个换行，这时才知道，当textarea失去焦点的情况下和上一次的改变了才叫改变，于是看别人的方法才知道用&lt;code&gt;keyup&lt;/code&gt;，键盘抬起时就判断一次，当时学习keyup的时候根本没想到它是这么用。&lt;/p&gt;
+&lt;p&gt;在添加行数div时超出容器会溢出在外显示，对&lt;code&gt;overflow&lt;/code&gt;属性在任务一时学习过，现在再重温一遍&lt;br&gt;&lt;code&gt;visible&lt;/code&gt;:(默认值)内容不会被修剪，会呈现在元素框之外&lt;br&gt;&lt;code&gt;hidden&lt;/code&gt;:内容会被修剪，并且其余内容不可见&lt;br&gt;&lt;code&gt;scroll&lt;/code&gt;:如果内容被修剪，并且其余内容不可见，会显示滚动条&lt;br&gt;&lt;code&gt;auto&lt;/code&gt;:如果内容被修剪，并且其余内容不可见，会显示滚动条&lt;br&gt;&lt;code&gt;inherit&lt;/code&gt;:指定从父元素继承overflow实行的值&lt;/p&gt;
+&lt;p&gt;然后问题又出现了，当滚动textarea时行数时不变的，并且行数的div是没有scroll的，利用textarea的值scrollTop值&lt;strong&gt;(滚动到上方被隐藏内容到高度)&lt;/strong&gt;,设置行数的div也被隐藏这么多&lt;strong&gt;(第一行div.style.marginTop = -(top)+”px”;)&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;这样就差不多了，我天真的以为可以了，开始时用的chrome，于是用IE和firefox测试了下，这是什么鬼！（我一直不太注意浏览器的兼容性问题）&lt;br&gt;原来同样的标签，在不同浏览器的大小、长相都不一样&lt;br&gt;浏览器添加事件方法不同，这个封装好每次直接用就可以了&lt;br&gt;三个浏览器对比图&lt;/p&gt;
+&lt;hr&gt;
+&lt;h4 id=&quot;谷歌&quot;&gt;&lt;a href=&quot;#谷歌&quot; class=&quot;headerlink&quot; title=&quot;谷歌&quot;&gt;&lt;/a&gt;谷歌&lt;/h4&gt;&lt;p&gt;&lt;img src=&quot;http://7xslws.com1.z0.glb.clouddn.com/Googletest.png&quot;&gt;&lt;/p&gt;
+&lt;hr&gt;
+&lt;h4 id=&quot;IE&quot;&gt;&lt;a href=&quot;#IE&quot; class=&quot;headerlink&quot; title=&quot;IE&quot;&gt;&lt;/a&gt;IE&lt;/h4&gt;&lt;p&gt;&lt;img src=&quot;http://7xslws.com1.z0.glb.clouddn.com/ietest.png&quot;&gt;&lt;/p&gt;
+&lt;hr&gt;
+&lt;h4 id=&quot;firefox&quot;&gt;&lt;a href=&quot;#firefox&quot; class=&quot;headerlink&quot; title=&quot;firefox&quot;&gt;&lt;/a&gt;firefox&lt;/h4&gt;&lt;p&gt;&lt;img src=&quot;http://7xslws.com1.z0.glb.clouddn.com/firefoxtest.png&quot;&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;越来越发现：&lt;br&gt;知道了是一回事，会用是一回事&lt;br&gt;技巧不是学来的，是自己总结的&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;当初学JavaScript里的函数时没有觉得有多难，在网上做一个小练习，感觉自己就会了，等真正在实践中用到的时候，发现对那个方法根本没有真正的学会。&lt;/p&gt;
+</content>
+    
+    <summary type="html">
+    
+      &lt;h4 id=&quot;如下图所示，用此布局&quot;&gt;&lt;a href=&quot;#如下图所示，用此布局&quot; class=&quot;headerlink&quot; title=&quot;如下图所示，用此布局&quot;&gt;&lt;/a&gt;如下图所示，用此布局&lt;/h4&gt;&lt;p&gt;&lt;img src=&quot;http://7xslws.com1.z0.glb.clouddn.com/textarea2.png&quot;&gt;&lt;/p&gt;
+&lt;h4 id=&quot;Body部分主要内容&quot;&gt;&lt;a href=&quot;#Body部分主要内容&quot; class=&quot;headerlink&quot; title=&quot;Body部分主要内容&quot;&gt;&lt;/a&gt;Body部分主要内容&lt;/h4&gt;&lt;figure class=&quot;highlight html&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;tag&quot;&gt;&amp;lt;&lt;span class=&quot;name&quot;&gt;div&lt;/span&gt; &lt;span class=&quot;attr&quot;&gt;id&lt;/span&gt;=&lt;span class=&quot;string&quot;&gt;&quot;box&quot;&lt;/span&gt;&amp;gt;&lt;/span&gt;     // div ---&amp;gt; ③&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	&lt;span class=&quot;tag&quot;&gt;&amp;lt;&lt;span class=&quot;name&quot;&gt;div&lt;/span&gt; &lt;span class=&quot;attr&quot;&gt;id&lt;/span&gt;=&lt;span class=&quot;string&quot;&gt;&quot;line&quot;&lt;/span&gt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;tag&quot;&gt;&amp;lt;/&lt;span class=&quot;name&quot;&gt;div&lt;/span&gt;&amp;gt;&lt;/span&gt;    // div ---&amp;gt; ①&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	&lt;span class=&quot;tag&quot;&gt;&amp;lt;&lt;span class=&quot;name&quot;&gt;textarea&lt;/span&gt; &lt;span class=&quot;attr&quot;&gt;id&lt;/span&gt;=&lt;span class=&quot;string&quot;&gt;&quot;textarea&quot;&lt;/span&gt; &lt;span class=&quot;attr&quot;&gt;rows&lt;/span&gt;=&lt;span class=&quot;string&quot;&gt;&quot;5&quot;&lt;/span&gt; &lt;span class=&quot;attr&quot;&gt;cols&lt;/span&gt;=&lt;span class=&quot;string&quot;&gt;&quot;40&quot;&lt;/span&gt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;tag&quot;&gt;&amp;lt;/&lt;span class=&quot;name&quot;&gt;textarea&lt;/span&gt;&amp;gt;&lt;/span&gt;   // div ---&amp;gt; ②&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;tag&quot;&gt;&amp;lt;/&lt;span class=&quot;name&quot;&gt;div&lt;/span&gt;&amp;gt;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+    
+    </summary>
+    
+    
+      <category term="JavaScript" scheme="http://yoursite.com/tags/JavaScript/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>一篇走心的文章</title>
+    <link href="http://yoursite.com/2016/04/29/%E4%B8%80%E7%AF%87%E8%B5%B0%E5%BF%83%E7%9A%84%E5%8D%9A%E5%AE%A2/"/>
+    <id>http://yoursite.com/2016/04/29/一篇走心的博客/</id>
+    <published>2016-04-29T05:10:08.361Z</published>
+    <updated>2016-06-02T13:47:07.711Z</updated>
+    
+    <content type="html">&lt;p&gt;一直不打算在博客里写关于生活的或者说想要表达自己观点的文章，顶多写个年终总结，但今天我的想法改变了。&lt;/p&gt;
+&lt;p&gt;讲讲缘由。&lt;/p&gt;
+&lt;p&gt;今天上午看组成原理有个知识点看不懂了，然后打开网易公开课找解决办法，然后不自觉的看了个TED视频，题目是&lt;a href=&quot;http://open.163.com/movie/2016/3/F/E/MBFLN6BJF_MBFLNJGFE.html&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;《如何成为一个更好的交谈者》&lt;/a&gt;。她讲了10个原则，我感觉我有几条中枪了~（不是原话，都是大意）&lt;br&gt;1、和别人聊天时听别人讲完别人的情况或遭遇时不要直接就说自己也是怎么怎么样，没有两个人的经历是完全一样的，说出来希望得到的是倾听。&lt;br&gt;2、别人说一个问题时，不是在倾听，而是在想如何更好的回复别人，或者想到一个新的有趣的事情然后就把别人的上一个问题给忽略了~这样对别人很不尊重的&lt;br&gt;3、不要自己有一个新观点时就和讲给别人听，别人不care的，如果实在想说就写在博客里阿~（这条让我决定写这篇文章）&lt;/p&gt;
+&lt;a id=&quot;more&quot;&gt;&lt;/a&gt;
+&lt;p&gt;我觉得上边的三个毛病我都有犯~&lt;/p&gt;
+&lt;li&gt;我有时听到别人的情况联想到自己的情况，然后bala说一通，当时的感觉是听者应该很开心，找到了共鸣，后来换位思考下，若果我和别人说完一件事情后别人就开始说自己的也怎样怎样，这样的感觉真的很不好&lt;/li&gt;
+
+&lt;li&gt;我有时也会想到一个有趣的事情时就忽略别人的上一个话题，我有时有一个新观点时也会和主动和别人谈起。当时的想法是：这么有趣的事=事情一定要分享阿！然后又换位思考了下，如果别人突然和我说她对恋爱改变了新看法，我：:)（你有病昂）&lt;/li&gt;
+
+&lt;li&gt;思考如何去回答别人是我最大的问题，害怕说的不对不好，害怕说的太肤浅，反而忽略了最重要的东西–倾听&lt;/li&gt;
+
+
+&lt;p&gt; 写这篇文章表示我有反思我自己，而且我非常同意她的观点，生活中你有很多话想说，很多时候大家并不关心你的想法可能也不想听，所以你可以写到你的博客里。&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;想起一句话:&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;好朋友不是见了面有说不完的话，而是即使不说话也不觉得尴尬。&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/blockquote&gt;
+</content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;一直不打算在博客里写关于生活的或者说想要表达自己观点的文章，顶多写个年终总结，但今天我的想法改变了。&lt;/p&gt;
+&lt;p&gt;讲讲缘由。&lt;/p&gt;
+&lt;p&gt;今天上午看组成原理有个知识点看不懂了，然后打开网易公开课找解决办法，然后不自觉的看了个TED视频，题目是&lt;a href=&quot;http://open.163.com/movie/2016/3/F/E/MBFLN6BJF_MBFLNJGFE.html&quot;&gt;《如何成为一个更好的交谈者》&lt;/a&gt;。她讲了10个原则，我感觉我有几条中枪了~（不是原话，都是大意）&lt;br&gt;1、和别人聊天时听别人讲完别人的情况或遭遇时不要直接就说自己也是怎么怎么样，没有两个人的经历是完全一样的，说出来希望得到的是倾听。&lt;br&gt;2、别人说一个问题时，不是在倾听，而是在想如何更好的回复别人，或者想到一个新的有趣的事情然后就把别人的上一个问题给忽略了~这样对别人很不尊重的&lt;br&gt;3、不要自己有一个新观点时就和讲给别人听，别人不care的，如果实在想说就写在博客里阿~（这条让我决定写这篇文章）&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="生活" scheme="http://yoursite.com/tags/%E7%94%9F%E6%B4%BB/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>HTML DOM节点属性</title>
+    <link href="http://yoursite.com/2016/04/20/HTML%20DOM%E8%8A%82%E7%82%B9%E5%B1%9E%E6%80%A7/"/>
+    <id>http://yoursite.com/2016/04/20/HTML DOM节点属性/</id>
+    <published>2016-04-20T11:26:24.754Z</published>
+    <updated>2016-06-02T01:53:54.858Z</updated>
+    
+    <content type="html">&lt;p&gt;&lt;b&gt;在HTML DOM中，所有的事物都是节点。DOM是被视为节点树的HTML&lt;/b&gt;&lt;/p&gt;
+&lt;h4 id=&quot;为什么说是DOM节点树呢-？看图&quot;&gt;&lt;a href=&quot;#为什么说是DOM节点树呢-？看图&quot; class=&quot;headerlink&quot; title=&quot;为什么说是DOM节点树呢~？看图&quot;&gt;&lt;/a&gt;为什么说是DOM节点树呢~？看图&lt;/h4&gt;&lt;p&gt;&lt;img src=&quot;http://7xslws.com2.z0.glb.clouddn.com/domtree.png&quot;&gt;&lt;/p&gt;
+&lt;p&gt;其实很好理解就是根上有树干，树干上有树枝，树枝再生树枝，但这是一个&lt;b&gt;倒过来的树&lt;/b&gt;&lt;/p&gt;
+&lt;h4 id=&quot;根据W3C得HTML-DOM标准，HTML文档中所有内容都是节点&quot;&gt;&lt;a href=&quot;#根据W3C得HTML-DOM标准，HTML文档中所有内容都是节点&quot; class=&quot;headerlink&quot; title=&quot;根据W3C得HTML DOM标准，HTML文档中所有内容都是节点&quot;&gt;&lt;/a&gt;根据W3C得HTML DOM标准，HTML文档中所有内容都是节点&lt;/h4&gt;&lt;ul&gt;&lt;br&gt;    &lt;li&gt;整个文档是一个文档节点&lt;/li&gt;&lt;br&gt;    &lt;li&gt;每个HTML元素都是元素节点&lt;/li&gt;&lt;br&gt;    &lt;li&gt;HTML元素里的文本是文本节点&lt;/li&gt;&lt;br&gt;    &lt;li&gt;每个HTML属性是属性节点&lt;/li&gt;&lt;br&gt;    &lt;li&gt;注释是注释节点&lt;/li&gt;&lt;br&gt;&lt;/ul&gt;
+
+&lt;a id=&quot;more&quot;&gt;&lt;/a&gt;
+&lt;h3 id=&quot;节点的属性&quot;&gt;&lt;a href=&quot;#节点的属性&quot; class=&quot;headerlink&quot; title=&quot;节点的属性&quot;&gt;&lt;/a&gt;节点的属性&lt;/h3&gt;&lt;blockquote&gt;
+&lt;p&gt;&lt;b&gt; innerHTML 属性&lt;/b&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;这个就是获取元素的内容，比较好理解，可以查看之前写的&lt;a href=&quot;http://maxiuli.com/2016/04/15/JavaScript%E8%8E%B7%E5%8F%96%E8%8A%82%E7%82%B9%E6%96%87%E6%9C%AC/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;JS获取节点文本&lt;/a&gt;对比理解&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;&lt;b&gt;nodeName属性&lt;/b&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;nodeName属性规定节点的名称.&lt;br&gt;nodeName是只读的&lt;br&gt;元素节点的nodeName与标签名相同&lt;br&gt;属性节点的nodeName与属性名相同&lt;br&gt;文本节点的nodeName始终是 #text&lt;br&gt;文档节点的nodeName始终是#document&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;&lt;b&gt;nodeValue属性&lt;/b&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;nodeValue属性规定节点的值&lt;br&gt;元素节点的nodeValue是undefi或null&lt;br&gt;文本节点的nodeValue是文本本身&lt;br&gt;属性节点的nodeValue是属性值&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;&lt;b&gt;nodeType属性&lt;/b&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;元素类型 —&amp;gt;  NodeType&lt;br&gt;  &amp;nbsp;&amp;nbsp;元素&amp;nbsp;&amp;nbsp;—&amp;gt;1&lt;br&gt;  &amp;nbsp;&amp;nbsp;属性&amp;nbsp;&amp;nbsp;—&amp;gt;2&lt;br&gt;  &amp;nbsp;&amp;nbsp;文本&amp;nbsp;&amp;nbsp;—&amp;gt;3&lt;br&gt;  &amp;nbsp;&amp;nbsp;注释&amp;nbsp;&amp;nbsp;—&amp;gt;8&lt;br&gt;  &amp;nbsp;&amp;nbsp;文档&amp;nbsp;&amp;nbsp;—&amp;gt;9&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;/blockquote&gt;
+&lt;h3 id=&quot;举个栗子&quot;&gt;&lt;a href=&quot;#举个栗子&quot; class=&quot;headerlink&quot; title=&quot;举个栗子&quot;&gt;&lt;/a&gt;举个栗子&lt;/h3&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;12&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;//整个文档是个文档节点&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;lt;html&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;  &amp;lt;head&amp;gt;  // 在&amp;lt;html&amp;gt;里的标签元素都是元素节点&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &amp;lt;title&amp;gt;DOM 节点&amp;lt;/title&amp;gt;  &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    //&amp;lt;title&amp;gt;是一个元素节点，“DOM节点”是文本节点&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;  &amp;lt;/head&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;  &amp;lt;body&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &amp;lt;h1&amp;gt;DOM 第一课&amp;lt;/h1&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &amp;lt;a href=&amp;quot;http://maxiuli.com&amp;quot;&amp;gt;我的博客&amp;lt;/a&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    //&amp;lt;a&amp;gt;是一个元素节点，“我的博客”是文本节点，href是属性节点&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;  &amp;lt;/body&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;lt;/html&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p color=&quot;&quot;&gt;文章是找资料自己写的，有不对的地方请指正~maxiuli95@Gmail.com&lt;/p&gt;</content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;&lt;b&gt;在HTML DOM中，所有的事物都是节点。DOM是被视为节点树的HTML&lt;/b&gt;&lt;/p&gt;
+&lt;h4 id=&quot;为什么说是DOM节点树呢-？看图&quot;&gt;&lt;a href=&quot;#为什么说是DOM节点树呢-？看图&quot; class=&quot;headerlink&quot; title=&quot;为什么说是DOM节点树呢~？看图&quot;&gt;&lt;/a&gt;为什么说是DOM节点树呢~？看图&lt;/h4&gt;&lt;p&gt;&lt;img src=&quot;http://7xslws.com2.z0.glb.clouddn.com/domtree.png&quot;&gt;&lt;/p&gt;
+&lt;p&gt;其实很好理解就是根上有树干，树干上有树枝，树枝再生树枝，但这是一个&lt;b&gt;倒过来的树&lt;/b&gt;&lt;/p&gt;
+&lt;h4 id=&quot;根据W3C得HTML-DOM标准，HTML文档中所有内容都是节点&quot;&gt;&lt;a href=&quot;#根据W3C得HTML-DOM标准，HTML文档中所有内容都是节点&quot; class=&quot;headerlink&quot; title=&quot;根据W3C得HTML DOM标准，HTML文档中所有内容都是节点&quot;&gt;&lt;/a&gt;根据W3C得HTML DOM标准，HTML文档中所有内容都是节点&lt;/h4&gt;&lt;ul&gt;&lt;br&gt;    &lt;li&gt;整个文档是一个文档节点&lt;/li&gt;&lt;br&gt;    &lt;li&gt;每个HTML元素都是元素节点&lt;/li&gt;&lt;br&gt;    &lt;li&gt;HTML元素里的文本是文本节点&lt;/li&gt;&lt;br&gt;    &lt;li&gt;每个HTML属性是属性节点&lt;/li&gt;&lt;br&gt;    &lt;li&gt;注释是注释节点&lt;/li&gt;&lt;br&gt;&lt;/ul&gt;
+    
+    </summary>
+    
+    
+      <category term="HTML" scheme="http://yoursite.com/tags/HTML/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>JS获取节点文本</title>
+    <link href="http://yoursite.com/2016/04/15/JavaScript%E8%8E%B7%E5%8F%96%E8%8A%82%E7%82%B9%E6%96%87%E6%9C%AC/"/>
+    <id>http://yoursite.com/2016/04/15/JavaScript获取节点文本/</id>
+    <published>2016-04-15T01:28:59.699Z</published>
+    <updated>2016-06-02T01:54:31.293Z</updated>
+    
+    <content type="html">&lt;p&gt;在做任务二十三时，要获取每个Div里的文本，只获取是儿子节点的文本节点。&lt;br&gt;例如：只获取“apple”&lt;/p&gt;
+&lt;p&gt;于是总结了获取节点中文本内容的方法：&lt;/p&gt;
+&lt;p&gt;以以下代码为例&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&amp;lt;div id=&amp;quot;main&amp;quot;&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	apple&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	&amp;lt;div&amp;gt;orange&amp;lt;/div&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	&amp;lt;div&amp;gt;banana&amp;lt;/div&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;lt;/div&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;lt;input type=&amp;quot;text&amp;quot; id=&amp;quot;text&amp;quot; value=&amp;quot;文本&amp;quot;&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
+&lt;p&gt;第一种：&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;var text = document.getElementById(&amp;quot;main&amp;quot;).innerHTML;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
+&lt;p&gt;这样获取到的是#main盒子里的所有内容，如图所示&lt;br&gt;&lt;img src=&quot;http://7xslws.com2.z0.glb.clouddn.com/1.png&quot;&gt;&lt;/p&gt;
+&lt;p&gt;第二种&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;var text = document.getElementById(&amp;quot;main&amp;quot;).innerText;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
+&lt;a id=&quot;more&quot;&gt;&lt;/a&gt;
+&lt;p&gt;这样获取到是#main盒子里的所有文本内容，但不包含标签，如图所示&lt;br&gt;&lt;img src=&quot;http://7xslws.com2.z0.glb.clouddn.com/2.png&quot;&gt;&lt;/p&gt;
+&lt;p&gt;第三种&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;var text = document.getElementById(&amp;quot;main&amp;quot;).firstChild.nodeValue;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
+&lt;p&gt;这样是获取到#main中的第一个文本节点的内容，如图所示&lt;br&gt;&lt;img src=&quot;http://7xslws.com2.z0.glb.clouddn.com/3.1.png&quot;&gt;&lt;br&gt;如果是使用&lt;strong&gt;firstElementChild&lt;/strong&gt;，则是获取第一个元素节点里的文本内容&lt;br&gt;firstChild和firstElementChild是不同的，可以查看&lt;a href=&quot;http://maxiuli.com/2016/04/12/firstChild%E5%92%8CfirstElementChild%E7%9A%84%E5%8C%BA%E5%88%AB/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;不同&lt;/a&gt;&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;var text = document.getElementById(&amp;quot;main&amp;quot;).firstElementChild.innerHTML;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
+&lt;p&gt;如图所示&lt;br&gt;&lt;img src=&quot;http://7xslws.com2.z0.glb.clouddn.com/3.2.png&quot;&gt;&lt;br&gt;第四种&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;var text = document.getElementById(&amp;quot;text&amp;quot;).value;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
+&lt;p&gt;对于文本框，用value值来获取，value可以不初始化，在文本框中最终输入的内容就是value值。如图所示&lt;br&gt;&lt;img src=&quot;http://7xslws.com2.z0.glb.clouddn.com/4.png&quot;&gt;&lt;/p&gt;
+</content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;在做任务二十三时，要获取每个Div里的文本，只获取是儿子节点的文本节点。&lt;br&gt;例如：只获取“apple”&lt;/p&gt;
+&lt;p&gt;于是总结了获取节点中文本内容的方法：&lt;/p&gt;
+&lt;p&gt;以以下代码为例&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&amp;lt;div id=&amp;quot;main&amp;quot;&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	apple&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	&amp;lt;div&amp;gt;orange&amp;lt;/div&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	&amp;lt;div&amp;gt;banana&amp;lt;/div&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;lt;/div&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;lt;input type=&amp;quot;text&amp;quot; id=&amp;quot;text&amp;quot; value=&amp;quot;文本&amp;quot;&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
+&lt;p&gt;第一种：&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;var text = document.getElementById(&amp;quot;main&amp;quot;).innerHTML;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
+&lt;p&gt;这样获取到的是#main盒子里的所有内容，如图所示&lt;br&gt;&lt;img src=&quot;http://7xslws.com2.z0.glb.clouddn.com/1.png&quot;&gt;&lt;/p&gt;
+&lt;p&gt;第二种&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;var text = document.getElementById(&amp;quot;main&amp;quot;).innerText;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="JavaScript" scheme="http://yoursite.com/tags/JavaScript/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>JS去除字符串前后空格</title>
+    <link href="http://yoursite.com/2016/04/15/JavaScript%E5%8E%BB%E9%99%A4%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%89%8D%E5%90%8E%E7%A9%BA%E6%A0%BC/"/>
+    <id>http://yoursite.com/2016/04/15/JavaScript去除字符串前后空格/</id>
+    <published>2016-04-15T01:18:38.960Z</published>
+    <updated>2016-06-02T01:45:57.118Z</updated>
+    
+    <content type="html">&lt;p&gt;在获取到字符串是经常出现前后有空格或换行等空白（在字符串匹配时是个大坑）&lt;br&gt;利用下面的方法就可以去除字符串前后的空格啦~&lt;br&gt;用正则找到空白符，然后使用replace()方法将空白符替换掉&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;function trimStr(str)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#123;return str.replace(/(^\s*)|(\s*$)/g,&amp;quot;&amp;quot;);&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;a id=&quot;more&quot;&gt;&lt;/a&gt;
+&lt;p&gt;关于正则表达式的使用给大家个参考：&lt;a href=&quot;http://deerchao.net/tutorials/regex/regex.htm&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;http://deerchao.net/tutorials/regex/regex.htm&lt;/a&gt;&lt;/p&gt;
+</content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;在获取到字符串是经常出现前后有空格或换行等空白（在字符串匹配时是个大坑）&lt;br&gt;利用下面的方法就可以去除字符串前后的空格啦~&lt;br&gt;用正则找到空白符，然后使用replace()方法将空白符替换掉&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;function trimStr(str)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#123;return str.replace(/(^\s*)|(\s*$)/g,&amp;quot;&amp;quot;);&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+    
+    </summary>
+    
+    
+      <category term="JavaScript" scheme="http://yoursite.com/tags/JavaScript/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>firstChild和firstElementChild的区别</title>
+    <link href="http://yoursite.com/2016/04/12/firstChild%E5%92%8CfirstElementChild%E7%9A%84%E5%8C%BA%E5%88%AB/"/>
+    <id>http://yoursite.com/2016/04/12/firstChild和firstElementChild的区别/</id>
+    <published>2016-04-12T04:56:09.063Z</published>
+    <updated>2016-06-02T01:43:58.467Z</updated>
+    
+    <content type="html">&lt;p&gt;在做百度前端学院任务二十二的时候遇到了一个问题，在遍历数组的时候发现节点找不到，后来对比别人的代码发现，是*firstChild*和*firstElementChild*在搞鬼~&lt;/p&gt;
+&lt;h4 id=&quot;·firstChild的用法&quot;&gt;&lt;a href=&quot;#·firstChild的用法&quot; class=&quot;headerlink&quot; title=&quot;·firstChild的用法&quot;&gt;&lt;/a&gt;·firstChild的用法&lt;/h4&gt;&lt;p&gt;此属性用来获取指定元素的第一个子元素,如果元素不存在，则返回null&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;var childnNode = Node.firstChild&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;下面看例子&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;11&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&amp;lt;div id=&amp;quot;main&amp;quot;&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;		&amp;lt;span&amp;gt;这是第一个span标签&amp;lt;/span&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;		&amp;lt;span&amp;gt;这是最后一个span标签&amp;lt;/span&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	&amp;lt;/div&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	&amp;lt;div id=&amp;quot;test&amp;quot;&amp;gt;&amp;lt;/div&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	&amp;lt;script type=&amp;quot;text/javascript&amp;quot;&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;		var testnode = document.getElementById(&amp;quot;test&amp;quot;);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;		var mainnode = document.getElementById(&amp;quot;main&amp;quot;); &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;		testnode.innerHTML = mainnode.firstChild;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;		//testnode.innerHTML = testnode.innerHTML + mainnode.firstElementChild;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	&amp;lt;/script&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
+&lt;a id=&quot;more&quot;&gt;&lt;/a&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;这是第一个span标签 这是最后一个span标签&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;[object Text]&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;此时获取到的是一个文本节点，以上代码，在不同的浏览器中也会有不同的结果，在标准浏览器中，获取到的为一个文本节点，但是再IE8 和IE8以下的版本，则会获取到span元素节点，因为标准浏览器会把空格和换行当作文本节点，而IE8 和IE8以下的版本则会直接忽略。&lt;/p&gt;
+&lt;h4 id=&quot;·firstElementChild的用法&quot;&gt;&lt;a href=&quot;#·firstElementChild的用法&quot; class=&quot;headerlink&quot; title=&quot;·firstElementChild的用法&quot;&gt;&lt;/a&gt;·firstElementChild的用法&lt;/h4&gt;&lt;p&gt;此属性返回当前元素的第一个元素子节点，如果没有元素子节点，则返回null.&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;var childnNode = Node.firstElementChild&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;举例说明&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;11&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&amp;lt;div id=&amp;quot;main&amp;quot;&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;		&amp;lt;span&amp;gt;这是第一个span标签&amp;lt;/span&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;		&amp;lt;span&amp;gt;这是最后一个span标签&amp;lt;/span&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	&amp;lt;/div&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	&amp;lt;div id=&amp;quot;test&amp;quot;&amp;gt;&amp;lt;/div&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	&amp;lt;script type=&amp;quot;text/javascript&amp;quot;&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;		var testnode = document.getElementById(&amp;quot;test&amp;quot;);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;		var mainnode = document.getElementById(&amp;quot;main&amp;quot;); &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;		//testnode.innerHTML = mainnode.firstChild;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;		testnode.innerHTML =mainnode.firstElementChild;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	&amp;lt;/script&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;显示结果：&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;这是第一个span标签 这是最后一个span标签&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;[object HTMLSpanElement]&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;最终获取到的是span元素，这个应该更好理解。&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;浏览器兼容:&lt;br&gt;（1）.IE9和IE9以上浏览器支持此属性。&lt;br&gt;（2）.谷歌浏览器支持此属性。&lt;br&gt;（3）.火狐浏览器支持此属性。&lt;br&gt;（4）.opera浏览器支持此属性。&lt;br&gt;（5）.safria浏览器支持此属性。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h4 id=&quot;·对比总结&quot;&gt;&lt;a href=&quot;#·对比总结&quot; class=&quot;headerlink&quot; title=&quot;·对比总结&quot;&gt;&lt;/a&gt;·对比总结&lt;/h4&gt;&lt;p&gt;  （1）共同点都是获取父节点下的第一个节点对象。&lt;br&gt;  （2）但是firstElementChild更傲娇，直接忽略文本节点（包括空格、回车）&lt;/p&gt;
+&lt;p&gt;  文章参考：&lt;a href=&quot;http://www.softwhy.com/forum.php?mod=viewthread&amp;amp;tid=18854&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;http://www.softwhy.com/forum.php?mod=viewthread&amp;amp;tid=18854&lt;/a&gt;&lt;/p&gt;
+</content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;在做百度前端学院任务二十二的时候遇到了一个问题，在遍历数组的时候发现节点找不到，后来对比别人的代码发现，是*firstChild*和*firstElementChild*在搞鬼~&lt;/p&gt;
+&lt;h4 id=&quot;·firstChild的用法&quot;&gt;&lt;a href=&quot;#·firstChild的用法&quot; class=&quot;headerlink&quot; title=&quot;·firstChild的用法&quot;&gt;&lt;/a&gt;·firstChild的用法&lt;/h4&gt;&lt;p&gt;此属性用来获取指定元素的第一个子元素,如果元素不存在，则返回null&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;var childnNode = Node.firstChild&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;下面看例子&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;11&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&amp;lt;div id=&amp;quot;main&amp;quot;&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;		&amp;lt;span&amp;gt;这是第一个span标签&amp;lt;/span&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;		&amp;lt;span&amp;gt;这是最后一个span标签&amp;lt;/span&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	&amp;lt;/div&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	&amp;lt;div id=&amp;quot;test&amp;quot;&amp;gt;&amp;lt;/div&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	&amp;lt;script type=&amp;quot;text/javascript&amp;quot;&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;		var testnode = document.getElementById(&amp;quot;test&amp;quot;);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;		var mainnode = document.getElementById(&amp;quot;main&amp;quot;); &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;		testnode.innerHTML = mainnode.firstChild;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;		//testnode.innerHTML = testnode.innerHTML + mainnode.firstElementChild;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	&amp;lt;/script&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="javascript" scheme="http://yoursite.com/tags/javascript/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>域名解析+绑定Hexo</title>
+    <link href="http://yoursite.com/2016/04/07/%E5%9F%9F%E5%90%8D%E8%A7%A3%E6%9E%90+%E7%BB%91%E5%AE%9AHexo/"/>
+    <id>http://yoursite.com/2016/04/07/域名解析+绑定Hexo/</id>
+    <published>2016-04-07T04:36:00.000Z</published>
+    <updated>2016-06-02T01:47:09.298Z</updated>
+    
+    <content type="html">&lt;p&gt;这两天折腾完了博客搭建好后，决定配一个名字~买域名时纠结买哪家买后缀是啥的，后来查了好久觉得这样丧失我本来写博客的意义了，选来选去觉得还是自己的名字最好！&lt;br&gt;对~就是 – 字如其人 - 人如其名 - 的 - 马秀丽 - &lt;a href=&quot;http://maxiuli.com&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;maxiuli.com&lt;/a&gt;&lt;/p&gt;
+&lt;h4 id=&quot;过程&quot;&gt;&lt;a href=&quot;#过程&quot; class=&quot;headerlink&quot; title=&quot;过程&quot;&gt;&lt;/a&gt;过程&lt;/h4&gt;&lt;ul&gt;
+&lt;li&gt;购买域名&lt;br&gt;我购买的&lt;a href=&quot;https://wanwang.aliyun.com/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;阿里云&lt;/a&gt;，觉得接地气一点，国外的过程也不麻烦–&lt;a href=&quot;https://sg.godaddy.com/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;GoDaddy&lt;/a&gt;、&lt;a href=&quot;https://www.namecheap.com/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;nameCheap&lt;/a&gt;。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;a id=&quot;more&quot;&gt;&lt;/a&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;将域名解析&lt;br&gt;首先到运营商修改DNS服务器，就是箭头指的地方–&lt;a href=&quot;https://support.dnspod.cn/Kb/showarticle/tsid/40/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;修改方法&lt;/a&gt;&lt;br&gt;&lt;img src=&quot;http://7xslws.com2.z0.glb.clouddn.com/type.png&quot;&gt;&lt;br&gt;下一步解析：&lt;br&gt;我是用的&lt;a href=&quot;https://www.dnspod.cn/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;DNSPod&lt;/a&gt;,解析步骤–&lt;a href=&quot;https://support.dnspod.cn/Kb/showarticle/tsid/28/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;帮助&lt;/a&gt;&lt;br&gt;重点是解析的时候，有几个地方需要注意。&lt;br&gt;&lt;img src=&quot;http://7xslws.com2.z0.glb.clouddn.com/QQ%E5%9B%BE%E7%89%8720160407130155.png&quot;&gt;&lt;br&gt;图片中的第一二行和最后一行使我们要添加的，记录值就是图中所示，最后一行的记录值是在GitHub上的地址。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;同步到GitHub&lt;br&gt;  在本地的Hexo文件夹所在地，例如：E:/Hexo 在Hexo下source文件夹下新建文件CNAME，里面就写你的域名，例如：maxiuli.com&lt;br&gt;  然后执行&lt;/p&gt;
+  &lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;hexo g&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;hexo d&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;这样就同步到了GitHub上，如果当时刷新不出来的话，耐心等个几分钟就OK啦~（我不停的喝水）&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;#&quot;&gt;预祝大家绑定成功~记得留言互访！(&lt;em&gt; ￣3)(ε￣ &lt;/em&gt;)&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+</content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;这两天折腾完了博客搭建好后，决定配一个名字~买域名时纠结买哪家买后缀是啥的，后来查了好久觉得这样丧失我本来写博客的意义了，选来选去觉得还是自己的名字最好！&lt;br&gt;对~就是 – 字如其人 - 人如其名 - 的 - 马秀丽 - &lt;a href=&quot;http://maxiuli.com&quot;&gt;maxiuli.com&lt;/a&gt;&lt;/p&gt;
+&lt;h4 id=&quot;过程&quot;&gt;&lt;a href=&quot;#过程&quot; class=&quot;headerlink&quot; title=&quot;过程&quot;&gt;&lt;/a&gt;过程&lt;/h4&gt;&lt;ul&gt;
+&lt;li&gt;购买域名&lt;br&gt;我购买的&lt;a href=&quot;https://wanwang.aliyun.com/&quot;&gt;阿里云&lt;/a&gt;，觉得接地气一点，国外的过程也不麻烦–&lt;a href=&quot;https://sg.godaddy.com/&quot;&gt;GoDaddy&lt;/a&gt;、&lt;a href=&quot;https://www.namecheap.com/&quot;&gt;nameCheap&lt;/a&gt;。&lt;/li&gt;
+&lt;/ul&gt;
+    
+    </summary>
+    
+    
+      <category term="hexo" scheme="http://yoursite.com/tags/hexo/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>原来的博客</title>
+    <link href="http://yoursite.com/2016/04/05/%E5%8E%9F%E6%9D%A5%E7%9A%84%E5%8D%9A%E5%AE%A2/"/>
+    <id>http://yoursite.com/2016/04/05/原来的博客/</id>
+    <published>2016-04-04T16:00:00.000Z</published>
+    <updated>2016-06-02T01:47:31.480Z</updated>
+    
+    <content type="html">&lt;style type=&quot;text/css&quot;&gt;
+    #blog{
+        width: 100px;
+    }    
+&lt;/style&gt;
+
+&lt;p&gt;&lt;a id=&quot;blog&quot; href=&quot;http://www.cnblogs.com/maxiaobao/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;马小宝&lt;/a&gt;—–原来的博客是居住在博客园&lt;br&gt;记录了也不是很多，想转移过来，发现挺麻烦的做个链接吧~&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;算法题目练手 + C语言&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;a href=&quot;http://www.cnblogs.com/maxiaobao/p/5164396.html&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;十六进制转十进制&lt;/a&gt;&lt;br&gt;&lt;a href=&quot;http://www.cnblogs.com/maxiaobao/p/5156743.html&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;利用malloc函数&lt;/a&gt;&lt;br&gt;&lt;a href=&quot;http://www.cnblogs.com/maxiaobao/p/5153243.html&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;01字符串&lt;/a&gt;&lt;br&gt;&lt;a href=&quot;http://www.cnblogs.com/maxiaobao/p/5152225.html&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;序列求和&lt;/a&gt;&lt;br&gt;&lt;a href=&quot;http://www.cnblogs.com/maxiaobao/p/5152196.html&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;圆的面积&lt;/a&gt;&lt;br&gt;&lt;a href=&quot;http://www.cnblogs.com/maxiaobao/p/5152188.html&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;斐波那契数列&lt;/a&gt;&lt;br&gt;&lt;a href=&quot;http://www.cnblogs.com/maxiaobao/p/5147410.html&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;C语言中的EOF&lt;/a&gt;&lt;br&gt;&lt;a href=&quot;http://www.cnblogs.com/maxiaobao/p/5202091.html&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;错排问题&lt;/a&gt;&lt;br&gt;&lt;a href=&quot;http://www.cnblogs.com/maxiaobao/p/5201733.html&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;上车人数&lt;/a&gt;&lt;br&gt;&lt;a href=&quot;http://www.cnblogs.com/maxiaobao/p/5201714.html&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;三角形&lt;/a&gt;&lt;br&gt;&lt;a href=&quot;http://www.cnblogs.com/maxiaobao/p/5178500.html&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;K好数&lt;/a&gt;&lt;br&gt;&lt;a href=&quot;http://www.cnblogs.com/maxiaobao/p/5173900.html&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;最大最小公倍数&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;前端知识 （CSS js jQuery）&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;a href=&quot;http://www.cnblogs.com/maxiaobao/p/5188178.html&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;点击li标签触发a中的超链接&lt;/a&gt;&lt;br&gt;&lt;a href=&quot;http://www.cnblogs.com/maxiaobao/p/5093942.html&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;CSS中display属性&lt;/a&gt;&lt;br&gt;&lt;a href=&quot;http://www.cnblogs.com/maxiaobao/p/5149300.html&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;JavaScript中定义数组&lt;/a&gt;&lt;br&gt;&lt;a href=&quot;http://www.cnblogs.com/maxiaobao/p/5114143.html&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;jQuery中单引号和双引号的使用&lt;/a&gt;&lt;br&gt;&lt;a href=&quot;http://www.cnblogs.com/maxiaobao/p/5137720.html&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;jQuery获取的值去掉px&lt;/a&gt;&lt;br&gt;&lt;a href=&quot;http://www.cnblogs.com/maxiaobao/p/5103837.html&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;jQuery报错：Uncaught ReferenceError: $ is not defined&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;生活&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;a href=&quot;http://www.cnblogs.com/maxiaobao/p/5185535.html&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;2015年总结+2016年计划&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;/blockquote&gt;
+&lt;a id=&quot;more&quot;&gt;&lt;/a&gt;
+</content>
+    
+    <summary type="html">
+    
+      &lt;style type=&quot;text/css&quot;&gt;
+    #blog{
+        width: 100px;
+    }    
+&lt;/style&gt;
+
+&lt;p&gt;&lt;a id=&quot;blog&quot; href=&quot;http://www.cnblogs.com/maxiaobao/&quot;&gt;马小宝&lt;/a&gt;—–原来的博客是居住在博客园&lt;br&gt;记录了也不是很多，想转移过来，发现挺麻烦的做个链接吧~&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;算法题目练手 + C语言&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;a href=&quot;http://www.cnblogs.com/maxiaobao/p/5164396.html&quot;&gt;十六进制转十进制&lt;/a&gt;&lt;br&gt;&lt;a href=&quot;http://www.cnblogs.com/maxiaobao/p/5156743.html&quot;&gt;利用malloc函数&lt;/a&gt;&lt;br&gt;&lt;a href=&quot;http://www.cnblogs.com/maxiaobao/p/5153243.html&quot;&gt;01字符串&lt;/a&gt;&lt;br&gt;&lt;a href=&quot;http://www.cnblogs.com/maxiaobao/p/5152225.html&quot;&gt;序列求和&lt;/a&gt;&lt;br&gt;&lt;a href=&quot;http://www.cnblogs.com/maxiaobao/p/5152196.html&quot;&gt;圆的面积&lt;/a&gt;&lt;br&gt;&lt;a href=&quot;http://www.cnblogs.com/maxiaobao/p/5152188.html&quot;&gt;斐波那契数列&lt;/a&gt;&lt;br&gt;&lt;a href=&quot;http://www.cnblogs.com/maxiaobao/p/5147410.html&quot;&gt;C语言中的EOF&lt;/a&gt;&lt;br&gt;&lt;a href=&quot;http://www.cnblogs.com/maxiaobao/p/5202091.html&quot;&gt;错排问题&lt;/a&gt;&lt;br&gt;&lt;a href=&quot;http://www.cnblogs.com/maxiaobao/p/5201733.html&quot;&gt;上车人数&lt;/a&gt;&lt;br&gt;&lt;a href=&quot;http://www.cnblogs.com/maxiaobao/p/5201714.html&quot;&gt;三角形&lt;/a&gt;&lt;br&gt;&lt;a href=&quot;http://www.cnblogs.com/maxiaobao/p/5178500.html&quot;&gt;K好数&lt;/a&gt;&lt;br&gt;&lt;a href=&quot;http://www.cnblogs.com/maxiaobao/p/5173900.html&quot;&gt;最大最小公倍数&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;前端知识 （CSS js jQuery）&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;a href=&quot;http://www.cnblogs.com/maxiaobao/p/5188178.html&quot;&gt;点击li标签触发a中的超链接&lt;/a&gt;&lt;br&gt;&lt;a href=&quot;http://www.cnblogs.com/maxiaobao/p/5093942.html&quot;&gt;CSS中display属性&lt;/a&gt;&lt;br&gt;&lt;a href=&quot;http://www.cnblogs.com/maxiaobao/p/5149300.html&quot;&gt;JavaScript中定义数组&lt;/a&gt;&lt;br&gt;&lt;a href=&quot;http://www.cnblogs.com/maxiaobao/p/5114143.html&quot;&gt;jQuery中单引号和双引号的使用&lt;/a&gt;&lt;br&gt;&lt;a href=&quot;http://www.cnblogs.com/maxiaobao/p/5137720.html&quot;&gt;jQuery获取的值去掉px&lt;/a&gt;&lt;br&gt;&lt;a href=&quot;http://www.cnblogs.com/maxiaobao/p/5103837.html&quot;&gt;jQuery报错：Uncaught ReferenceError: $ is not defined&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;生活&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;a href=&quot;http://www.cnblogs.com/maxiaobao/p/5185535.html&quot;&gt;2015年总结+2016年计划&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;/blockquote&gt;
+    
+    </summary>
+    
+    
+      <category term="生活" scheme="http://yoursite.com/tags/%E7%94%9F%E6%B4%BB/"/>
+    
+      <category term="学习" scheme="http://yoursite.com/tags/%E5%AD%A6%E4%B9%A0/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Hexo博客终于出生了</title>
+    <link href="http://yoursite.com/2016/04/04/%E7%BB%88%E4%BA%8E%E6%9C%89%E4%BA%86%E5%8D%9A%E5%AE%A2/"/>
+    <id>http://yoursite.com/2016/04/04/终于有了博客/</id>
+    <published>2016-04-04T12:46:25.000Z</published>
+    <updated>2016-06-02T01:48:24.226Z</updated>
+    
+    <content type="html">&lt;p&gt;  不好意思~出生的这天恰好是 —- 清明节&lt;/p&gt;
+&lt;p&gt;  今天加昨天，虽然还不是很明白，但是它上线了阿~！请允许我开心的转个圈~！&lt;br&gt;  中间真的踩了很多坑&lt;/p&gt;
+&lt;p&gt;  在群里–&lt;br&gt;  小伙伴：你用便携版吧&lt;br&gt;  我说：我都到了这一步了，不能放弃啊~！%&amp;gt;_&amp;lt;%&lt;br&gt;  小伙伴：才。。这一步 o(╯□╰)o&lt;br&gt;  无论如何也过了那一步啦嘛~还是很骄傲滴&lt;br&gt;  在此真心的感谢群里的大神们~很有耐心&lt;br&gt;&lt;a id=&quot;more&quot;&gt;&lt;/a&gt;&lt;br&gt;    来一发我男神~&lt;/p&gt;
+&lt;p&gt;  &lt;img src=&quot;http://7xslws.com2.z0.glb.clouddn.com/C7C09A821A74AFCCC7B9AF10F27E0FCC.jpeg&quot;&gt;&lt;/p&gt;
+</content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;  不好意思~出生的这天恰好是 —- 清明节&lt;/p&gt;
+&lt;p&gt;  今天加昨天，虽然还不是很明白，但是它上线了阿~！请允许我开心的转个圈~！&lt;br&gt;  中间真的踩了很多坑&lt;/p&gt;
+&lt;p&gt;  在群里–&lt;br&gt;  小伙伴：你用便携版吧&lt;br&gt;  我说：我都到了这一步了，不能放弃啊~！%&amp;gt;_&amp;lt;%&lt;br&gt;  小伙伴：才。。这一步 o(╯□╰)o&lt;br&gt;  无论如何也过了那一步啦嘛~还是很骄傲滴&lt;br&gt;  在此真心的感谢群里的大神们~很有耐心&lt;br&gt;
+    
+    </summary>
+    
+    
+      <category term="生活" scheme="http://yoursite.com/tags/%E7%94%9F%E6%B4%BB/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>数据在本地文件的写入和读取</title>
+    <link href="http://yoursite.com/2015/12/25/%E6%96%87%E4%BB%B6%E5%AF%B9%E6%96%87%E4%BB%B6%E5%86%99%E5%85%A5%E5%92%8C%E8%AF%BB%E5%8F%96/"/>
+    <id>http://yoursite.com/2015/12/25/文件对文件写入和读取/</id>
+    <published>2015-12-25T12:03:00.000Z</published>
+    <updated>2016-04-06T09:02:38.643Z</updated>
+    
+    <content type="html">&lt;p&gt;以基于Map接口的HashMap类的集合为 例&lt;/p&gt;
+&lt;p&gt;1、 判断文件是否存在&lt;/p&gt;
+&lt;a id=&quot;more&quot;&gt;&lt;/a&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;11&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;public void isRight()&amp;#123;                   //判断文件是否存在&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        if(!myfile.exists())&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;            try &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;                myfile.createNewFile();  //不存在就要建立&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;            &amp;#125; catch (IOException e) &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;                e.printStackTrace();&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;            &amp;#125; finally &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;                System.out.println(&amp;quot;文件已建立！&amp;quot;);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;            &amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        &amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &amp;#125;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;2、将集合里的对象存到文件&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;12&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;13&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;14&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;15&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;public void WriteFile()&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;   for(int i=0;i&amp;lt;map.size();i++)&amp;#123;                    // 一定要遍历&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;       try&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;              fos = new FileOutputFile(&amp;quot;Study.txt&amp;quot;);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;              oos = new ObjectOutPutStream(fos);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;              oos.writeObject(map);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;         &amp;#125;catch&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;         &amp;#125;finaly&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;             fos.close();&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;             oos.close();&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;         &amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;3、将文件里的对象存入集合&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;12&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;13&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;14&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;15&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;16&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;17&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;18&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;19&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;public void readObject()&amp;#123;                //从文件中读取学生信息&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;         &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;            try &amp;#123;                         //  ② 为什么 读取不需要时不需要遍历？&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;                fis = new FileInputStream(&amp;quot;Student.txt&amp;quot;);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;                if(myfile.length() == 0)&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;                    fis.close();&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;                    return ;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;                &amp;#125;else&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;                    ois = new ObjectInputStream(fis);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;                    students = (HashMap&amp;lt;String, Student&amp;gt;) ois.readObject();&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;                    fis.close();&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;                    ois.close();&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;                    System.out.println(&amp;quot;学生信息读取成功！&amp;quot;);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;                &amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;            &amp;#125; catch (Exception e) &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;                e.printStackTrace();&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;            &amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;            &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &amp;#125;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;</content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;以基于Map接口的HashMap类的集合为 例&lt;/p&gt;
+&lt;p&gt;1、 判断文件是否存在&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="Java" scheme="http://yoursite.com/tags/Java/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>MapHashMap 获取Key值的方法</title>
+    <link href="http://yoursite.com/2015/12/25/MapHash%E8%8E%B7%E5%8F%96Key%E5%80%BC%E6%96%B9%E6%B3%95/"/>
+    <id>http://yoursite.com/2015/12/25/MapHash获取Key值方法/</id>
+    <published>2015-12-25T10:54:00.000Z</published>
+    <updated>2016-06-02T01:46:22.169Z</updated>
+    
+    <content type="html">&lt;p&gt;1、通过  KeySet()方法&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;12&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;13&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;14&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;Map&amp;lt;String,Student&amp;gt; newmap = new HashMap&amp;lt;String,Student&amp;gt;();       //newmap HaspMap类型的集合  有唯一的Key，一个Key对应相应的学生&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;Student stu = new Student(&amp;quot;11&amp;quot;,&amp;quot;Mary&amp;quot;,&amp;quot;79&amp;quot;);                     //创建一个学生对象 学号11; 姓名 Mary 成绩 79  &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;newmap.put(&amp;quot;1101&amp;quot;,stu);                                         // Mary 同学对应唯一的编号 11，11即为它的Key值&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;Set set = newmap.KeySet();                                      //利用Set()函数获取newmap中所有的key值&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;Iterator  ite = set.iterator();                               // 创建一个叫ite的迭代器&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;while(ite.hasNext())&amp;#123;                                         // 利用hasNext()判断下一个元素是否存在&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    System.our.println((String)ite.Next());                //  !这句才是重点 获取到Key值后要进行强制类型转换才能输出  &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    newmap.get(ite.Next()).showStudent();              //  Next() 第一次调用时返回的是newmap里的第一个元素的key值，下次调用返回下一个元素的key值&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
+&lt;a id=&quot;more&quot;&gt;&lt;/a&gt;
+&lt;p&gt;2、通过 entry.set() 方法&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;12&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;HashMap map;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;Iterator i = map.entrySet().iterator();&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;while (i.hasNext()) &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;Object obj = i.next();&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;String key = obj.toString();&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;// or&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;while (i.hasNext()) &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;Entry entry = (java.util.Map.Entry)it.next();&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;entry.getkey();&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;entry.getValue();&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;</content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;1、通过  KeySet()方法&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;12&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;13&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;14&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;Map&amp;lt;String,Student&amp;gt; newmap = new HashMap&amp;lt;String,Student&amp;gt;();       //newmap HaspMap类型的集合  有唯一的Key，一个Key对应相应的学生&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;Student stu = new Student(&amp;quot;11&amp;quot;,&amp;quot;Mary&amp;quot;,&amp;quot;79&amp;quot;);                     //创建一个学生对象 学号11; 姓名 Mary 成绩 79  &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;newmap.put(&amp;quot;1101&amp;quot;,stu);                                         // Mary 同学对应唯一的编号 11，11即为它的Key值&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;Set set = newmap.KeySet();                                      //利用Set()函数获取newmap中所有的key值&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;Iterator  ite = set.iterator();                               // 创建一个叫ite的迭代器&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;while(ite.hasNext())&amp;#123;                                         // 利用hasNext()判断下一个元素是否存在&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    System.our.println((String)ite.Next());                //  !这句才是重点 获取到Key值后要进行强制类型转换才能输出  &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    newmap.get(ite.Next()).showStudent();              //  Next() 第一次调用时返回的是newmap里的第一个元素的key值，下次调用返回下一个元素的key值&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="Java" scheme="http://yoursite.com/tags/Java/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>终于和Java碰面了</title>
+    <link href="http://yoursite.com/2015/12/24/%E7%BB%88%E4%BA%8E%E5%92%8CJava%E7%A2%B0%E9%9D%A2%E4%BA%86/"/>
+    <id>http://yoursite.com/2015/12/24/终于和Java碰面了/</id>
+    <published>2015-12-24T12:33:14.000Z</published>
+    <updated>2016-04-06T09:06:40.212Z</updated>
+    
+    <content type="html">&lt;p&gt;  今晚竟然没有作业，这比今天是平安夜更让我开心。&lt;/p&gt;
+&lt;p&gt;  学习Java的时候是在大二上半学期，那时候什么都不懂，真的什么都不懂，连Hello World！ 都输不出来，后来学习了C++，觉得有点感觉了，那时候同时学习了《数据结构和算法》，于是开始对C语言有感觉了，最令我开心的是开了web课，让我知道前端的存在（从那一刻我决定我必然是成为一名前端攻城狮）。&lt;br&gt;&lt;a id=&quot;more&quot;&gt;&lt;/a&gt;&lt;br&gt;   从学了Java后听好多人说Java有多厉害于是决定看看java 到底是什么样地，于是大三上学期借助网络课程（在这里衷心感谢慕课网！）一个星期学习了Java的最基础的课程（类，数组）。了解个大概后就在也没管，因为我觉得我是要成为前端攻城狮的人，于是复习基础的HTML和JavaScript，然后又学习CSS和深入自学JavaScript。&lt;/p&gt;
+&lt;p&gt;  现在我们要进行实训，第一天做最简单的小计算器，第二天利用数组做学生管理系统，第三天利用集合做学生管理系统老师大概讲一下知识点，然后大部分知识都靠自己查找，虽然其间遇到了许多问题，但自己都按部就班的解决了，还是很有成就感，思想真的很重要，利用集合省好多事，需要的功能库函数里基本都帮你实现了，现在看Java真的是另一种感觉，语言真的不是问题。&lt;/p&gt;
+</content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;  今晚竟然没有作业，这比今天是平安夜更让我开心。&lt;/p&gt;
+&lt;p&gt;  学习Java的时候是在大二上半学期，那时候什么都不懂，真的什么都不懂，连Hello World！ 都输不出来，后来学习了C++，觉得有点感觉了，那时候同时学习了《数据结构和算法》，于是开始对C语言有感觉了，最令我开心的是开了web课，让我知道前端的存在（从那一刻我决定我必然是成为一名前端攻城狮）。&lt;br&gt;
+    
+    </summary>
+    
+    
+      <category term="生活" scheme="http://yoursite.com/tags/%E7%94%9F%E6%B4%BB/"/>
+    
+      <category term="学习" scheme="http://yoursite.com/tags/%E5%AD%A6%E4%B9%A0/"/>
+    
+  </entry>
+  
+</feed>
