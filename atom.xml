@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2017-04-22T09:02:09.356Z</updated>
+  <updated>2017-05-01T13:31:56.967Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -14,6 +14,66 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>git命令操作</title>
+    <link href="http://yoursite.com/2017/05/01/git%E6%93%8D%E4%BD%9C%E5%91%BD%E4%BB%A4/"/>
+    <id>http://yoursite.com/2017/05/01/git操作命令/</id>
+    <published>2017-05-01T10:04:00.000Z</published>
+    <updated>2017-05-01T13:31:56.967Z</updated>
+    
+    <content type="html">&lt;p&gt;平时用的git命令就那么几个，都很简单，这几天系统的看了廖雪峰老师的教程，简直写的不能更好，这个记录比较简洁，推荐大家点击&lt;a href=&quot;http://www.liaoxuefeng.com/wiki/0013739516305929606dd18361248578c67b8067c8c017b000&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;廖雪峰老师的git教程&lt;/a&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;git 命令&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;git init  初始化一个仓库&lt;/p&gt;
+&lt;p&gt;git add readme.text 仓库中条件一个文件&lt;/p&gt;
+&lt;p&gt;git commit -m “balabala” 仓库代码合并&lt;/p&gt;
+&lt;p&gt;git status 仓库的状态&lt;/p&gt;
+&lt;p&gt;git diff 仓库的变化&lt;/p&gt;
+&lt;p&gt;git log 打印日志&lt;/p&gt;
+&lt;p&gt;git reflog 查看原来的命令&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;/blockquote&gt;
+&lt;a id=&quot;more&quot;&gt;&lt;/a&gt;
+&lt;blockquote&gt;
+&lt;blockquote&gt;
+&lt;p&gt;stage 暂存区&lt;/p&gt;
+&lt;p&gt;git checkout – (filename) 工作区的修改撤销&lt;/p&gt;
+&lt;p&gt;git reset HEAD (filename) 暂存区修改撤销 （再进行工作区撤销）&lt;/p&gt;
+&lt;p&gt;git reset –hard HEAD^ (num)回退到上一版本&lt;/p&gt;
+&lt;p&gt;git rm （filename）删除文件&lt;/p&gt;
+&lt;p&gt;git push  把本地仓库修改推送到远程仓库修改&lt;/p&gt;
+&lt;p&gt;git clone （url）将远程仓库的内容克隆到本地&lt;/p&gt;
+&lt;p&gt;git branch （devname）创建分支&lt;/p&gt;
+&lt;p&gt;git branch 查看所有分支&lt;/p&gt;
+&lt;p&gt;git checkout （devname）切换分支&lt;/p&gt;
+&lt;p&gt;git merge （devname）将dev分支上的东西合并到当前所在分支&lt;/p&gt;
+&lt;p&gt;git branch -d （devname）删除分支&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;/blockquote&gt;
+</content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;平时用的git命令就那么几个，都很简单，这几天系统的看了廖雪峰老师的教程，简直写的不能更好，这个记录比较简洁，推荐大家点击&lt;a href=&quot;http://www.liaoxuefeng.com/wiki/0013739516305929606dd18361248578c67b8067c8c017b000&quot;&gt;廖雪峰老师的git教程&lt;/a&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;git 命令&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;git init  初始化一个仓库&lt;/p&gt;
+&lt;p&gt;git add readme.text 仓库中条件一个文件&lt;/p&gt;
+&lt;p&gt;git commit -m “balabala” 仓库代码合并&lt;/p&gt;
+&lt;p&gt;git status 仓库的状态&lt;/p&gt;
+&lt;p&gt;git diff 仓库的变化&lt;/p&gt;
+&lt;p&gt;git log 打印日志&lt;/p&gt;
+&lt;p&gt;git reflog 查看原来的命令&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;/blockquote&gt;
+    
+    </summary>
+    
+    
+  </entry>
   
   <entry>
     <title>JS中的等号、双等号和三等号区别</title>
@@ -785,32 +845,6 @@
     
     
       <category term="Java" scheme="http://yoursite.com/tags/Java/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>终于和Java碰面了</title>
-    <link href="http://yoursite.com/2015/12/24/%E7%BB%88%E4%BA%8E%E5%92%8CJava%E7%A2%B0%E9%9D%A2%E4%BA%86/"/>
-    <id>http://yoursite.com/2015/12/24/终于和Java碰面了/</id>
-    <published>2015-12-24T12:33:14.000Z</published>
-    <updated>2016-04-06T09:06:40.212Z</updated>
-    
-    <content type="html">&lt;p&gt;  今晚竟然没有作业，这比今天是平安夜更让我开心。&lt;/p&gt;
-&lt;p&gt;  学习Java的时候是在大二上半学期，那时候什么都不懂，真的什么都不懂，连Hello World！ 都输不出来，后来学习了C++，觉得有点感觉了，那时候同时学习了《数据结构和算法》，于是开始对C语言有感觉了，最令我开心的是开了web课，让我知道前端的存在（从那一刻我决定我必然是成为一名前端攻城狮）。&lt;br&gt;&lt;a id=&quot;more&quot;&gt;&lt;/a&gt;&lt;br&gt;   从学了Java后听好多人说Java有多厉害于是决定看看java 到底是什么样地，于是大三上学期借助网络课程（在这里衷心感谢慕课网！）一个星期学习了Java的最基础的课程（类，数组）。了解个大概后就在也没管，因为我觉得我是要成为前端攻城狮的人，于是复习基础的HTML和JavaScript，然后又学习CSS和深入自学JavaScript。&lt;/p&gt;
-&lt;p&gt;  现在我们要进行实训，第一天做最简单的小计算器，第二天利用数组做学生管理系统，第三天利用集合做学生管理系统老师大概讲一下知识点，然后大部分知识都靠自己查找，虽然其间遇到了许多问题，但自己都按部就班的解决了，还是很有成就感，思想真的很重要，利用集合省好多事，需要的功能库函数里基本都帮你实现了，现在看Java真的是另一种感觉，语言真的不是问题。&lt;/p&gt;
-</content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;  今晚竟然没有作业，这比今天是平安夜更让我开心。&lt;/p&gt;
-&lt;p&gt;  学习Java的时候是在大二上半学期，那时候什么都不懂，真的什么都不懂，连Hello World！ 都输不出来，后来学习了C++，觉得有点感觉了，那时候同时学习了《数据结构和算法》，于是开始对C语言有感觉了，最令我开心的是开了web课，让我知道前端的存在（从那一刻我决定我必然是成为一名前端攻城狮）。&lt;br&gt;
-    
-    </summary>
-    
-    
-      <category term="生活" scheme="http://yoursite.com/tags/%E7%94%9F%E6%B4%BB/"/>
-    
-      <category term="学习" scheme="http://yoursite.com/tags/%E5%AD%A6%E4%B9%A0/"/>
     
   </entry>
   
