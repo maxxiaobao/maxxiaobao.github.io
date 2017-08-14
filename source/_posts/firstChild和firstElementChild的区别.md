@@ -1,5 +1,6 @@
 ---
 title: firstChild和firstElementChild的区别
+date: 2016-6-20 20:03
 tags: javascript
 ---
 

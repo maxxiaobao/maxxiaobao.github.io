@@ -1,5 +1,6 @@
 ---
 title: JS去除字符串前后空格
+date: 2016-5-2
 tags: JavaScript
 ---
 

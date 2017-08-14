@@ -1,5 +1,6 @@
 ---
 title: js控制audio音频的播放与暂停
+date: 2017-5-4 20:03
 tags: javascript
 ---
 

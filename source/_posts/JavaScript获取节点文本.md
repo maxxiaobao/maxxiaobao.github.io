@@ -1,5 +1,6 @@
 ---
 title: JS获取节点文本
+date: 2016-4-26 20:03
 tags: JavaScript
 ---
 

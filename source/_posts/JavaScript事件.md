@@ -1,5 +1,6 @@
 ---
 title: JavaScript事件大全
+date: 2016-10-20
 tags: JavaScript
 ---
 > #### 一般事件
