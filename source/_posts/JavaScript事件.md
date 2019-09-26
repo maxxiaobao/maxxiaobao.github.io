@@ -3,6 +3,7 @@ title: JavaScript事件大全
 date: 2016-10-20
 tags: JavaScript
 ---
+
 > #### 一般事件
 
 <ul>
@@ -63,7 +64,6 @@ tags: JavaScript
 	<li><strong>onDatasetChanged——</strong>数据在数据源发生变化时触发的事件</li>
 </ul>
 
-
 > #### 外部事件
 
 <ul>
@@ -74,5 +74,4 @@ tags: JavaScript
 	<li><strong>onReadyStateChange——</strong>当对象的初始化属性值发生变化时触发</li>
 </ul>
 
-<h6>突然发现经常用到触发事件，就总结了一下~<a href="http://www.jb51.net/article/28772.htm">文章参考</a></h6>
-
+<h6>突然发现经常用到触发事件，就总结了一下~<a href="https://www.jb51.net/article/28772.htm">文章参考</a></h6>
