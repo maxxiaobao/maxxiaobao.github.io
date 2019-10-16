@@ -77,4 +77,4 @@ archive_generator:
 deploy:
   type: git
   repository: https://github.com/maxxiaobao/maxxiaobao.github.io.git
-  branch: gh-pages
+  branch: master

@@ -10,7 +10,7 @@ date: 2017-03-05 13:31
 
 > #### 1 数组的新建
 
-```javascript
+```js
 var arrayObj = new Array();　//创建一个数组
 var arrayObj = new Array([size]);　//创建一个数组并指定长度，注意不是上限，是长度
 var arrayObj = new Array([element0[, element1[, ...[, elementN]]]]);　//创建一个数组并赋值
@@ -22,7 +22,7 @@ var arrayObj = new Array([element0[, element1[, ...[, elementN]]]]);　//创建�
 
 > #### 2 数组元素的访问
 
-```javascript
+```js
 var testGetArrValue = arrayObj[i];  //获取元素的值
 var arrObj[i] = "这是元素的值";    //给数组元素赋值
 ```
@@ -31,7 +31,7 @@ var arrObj[i] = "这是元素的值";    //给数组元素赋值
 
 > #### 3 数组元素的添加
 
-```javascript
+```js
 arrObj.push(item);   //将元素添加到数组的尾部，返回新数组的长度
 arrObj.unshift(item);   //将元素添加到数组的头部，其他元素后移，返回新数组的长度
 arrObj.splice(index,howmany,item1,.....,itemX);  //index（必填）添加/删除元素的起始位置，howmany（必填）添加/删除元素的个数，item(选填)如果有则添加，没有就删除
@@ -39,7 +39,7 @@ arrObj.splice(index,howmany,item1,.....,itemX);  //index（必填）添加/删�
 
 > #### 4 数组元素的删除
 
-```javascript
+```js
 arrObj.pop(); //移除最后一个元素，返回被除元素的值
 arrObj.shift(); //移除第一个元素，返回移除元素的值，其他元素前移
 arrObj.splice(deletePos, deleteCount); //deletePos移除位置，deleteCount移除的数量，返以数组的形式回移除的元素
@@ -47,28 +47,28 @@ arrObj.splice(deletePos, deleteCount); //deletePos移除位置，deleteCount移�
 
 > #### 5 数组的截取与合并
 
-```javascript
+```js
 arrObj.slice(start, end); //以数组的形式返回从start到end的元素（不包括end），如果end不填则返回star后的所有元素
 arrObj.concat(item); //arrObj与item合并为新的数组，item可以是元素、也可以是数组，返回合并后的新数组
 ```
 
 > #### 6 数组的拷贝
 
-```javascript
+```js
 arrayObj.slice(0); //返回数组的拷贝数组，注意是一个新的数组，不是指向
 arrayObj.concat(); //返回数组的拷贝数组，注意是一个新的数组，不是指向
 ```
 
 > #### 7 数组的排序
 
-```javascript
+```js
 arrObj.reverse(); //数组反转，返回数组地址
 arrObj.sort(); //数组元素排序，返回数组地址
 ```
 
 > #### 8 数组元素字符串化
 
-```javascript
+```js
 arrayObj.join(separator); //返回字符串，这个字符串将数组的每一个元素值连接在一起，中间用 separator 隔开。
 toLocaleString 、toString 、valueOf：可以看作是join的特殊用法，不常用
 ```

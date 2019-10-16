@@ -51,7 +51,7 @@ date: 2016-4-6 20:03
 
 #### JavaScript 实现部分
 
-```Javascript
+```js
 <script type="text/javascript">
 		window.onload = function () {
 			var textArea = document.getElementById("textarea");
