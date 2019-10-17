@@ -19,6 +19,6 @@ date: 2016-04-04 20:33:14
 > 如果可以希望能学习口琴
 > 虽然胖乎乎但减肥的心情好像并没有那么急切
 > 敲代码的时候要<a href="https://music.163.com/#/user/home?id=73924893">听歌</a>只走耳朵不走心
-> 你也可以在我的<a href="https://weibo.com/maxxiaobao">微博</a>、<a href="https://www.oneniceapp.com/user/5480405">Nice</a>找到我~
+> 联系我：`maxiuli95@gmail.com`
 
 #### 看到这里的人都是世界上最好看的人儿~❤
