@@ -1,0 +1,26 @@
+<!DOCTYPE html><html lang="en"><head><meta name="generator" content="Hexo 3.9.0"><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><title> Git: 默认不区分文件名大小写 · 马小宝</title><meta name="description" content="Git: 默认不区分文件名大小写 - MaXiaoBao"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="short icon" href="/egg.ico"><link rel="stylesheet" href="/css/apollo.css"><link rel="search" type="application/opensearchdescription+xml" href="https://maxiuli.com/atom.xml" title="马小宝"></head><body><div class="wrap"><header><a href="/" class="logo-link"><img src="/egg.ico"></a><ul class="nav nav-list"><li class="nav-list-item"><a href="/" target="_self" class="nav-list-link">BLOG</a></li><li class="nav-list-item"><a href="/archives/" target="_self" class="nav-list-link">ARCHIVE</a></li><li class="nav-list-item"><a href="https://github.com/maxxiaobao" target="_blank" class="nav-list-link">GITHUB</a></li><li class="nav-list-item"><a href="/about/" target="_self" class="nav-list-link">ABOUT</a></li><li class="nav-list-item"><a href="/atom.xml" target="_self" class="nav-list-link">RSS</a></li></ul></header><section class="container"><div class="post"><article class="post-block"><h1 class="post-title">Git: 默认不区分文件名大小写</h1><div class="post-info">Feb 26, 2020</div><div class="post-content"><p>（天哪，马上要 2020 年 3 月份了，太快了）</p>
+<p>又遇到这个问题了，这是个什么问题呢？</p>
+<h3 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h3><p>你的 repo 里有一个文件叫 <code>myname.js</code>, 后来改名 <code>MyName.js</code></p>
+<p>修改后准备提交，命令行输入</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git status</span><br></pre></td></tr></table></figure>
+<p>发现并没有什么改动可以提交</p>
+<a id="more"></a>
+<h3 id="原因"><a href="#原因" class="headerlink" title="原因"></a>原因</h3><p>Git 里默认对于文件名大小写是不敏感的<br>命令行输入，查看当前的设置</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git config core.ignorecase</span><br></pre></td></tr></table></figure>
+<p><code>true</code> 则是不敏感</p>
+<h3 id="解决"><a href="#解决" class="headerlink" title="解决"></a>解决</h3><p>打开终端，输入以下命令配置 Git 使其对文件名大小写敏感</p>
+<p><code>git config core.ignorecase false</code></p>
+<p>设置完成后，再修改，可以看到自己的改动</p>
+<p>但如果这时直接提交就会出现另外一个问题，本地是把文件 <code>myname.js</code> 修改为 <code>MyName.js</code></p>
+<p>可是提交后的远程仓库 <code>myname.js</code> 和 <code>MyName.js</code> 同时存在，<code>myname.js</code> 并没有被删除</p>
+<p>（非常之坑）</p>
+<p>所以意味着修改的时候要删除之前的文件, 修改名字后</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">git add MyName.js</span><br><span class="line">git rm myname.js</span><br><span class="line">git commit -m &apos;rename ...&apos;</span><br><span class="line">git push</span><br></pre></td></tr></table></figure>
+<p>很麻烦是不是，是的</p>
+<p>讲了半天，其实 Git 可以直接修改文件名，然后提交</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git mv oldfile(旧文件名) newfile(新文件名)</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>详情查看 <a href="https://git-scm.com/docs/git-mv" target="_blank" rel="noopener">https://git-scm.com/docs/git-mv</a></p>
+</blockquote>
+</div></article></div></section><footer><div class="paginator"><a href="/2020/04/13/BFC解决边距折叠/" class="prev">PREV</a><a href="/2019/10/16/小程序3/" class="next">NEXT</a></div><style>.span{display: inline-block;width: 20px;height: 20px;font-size: 14px;line-height: 20px;text-align: center;}
+</style><div class="copyright"><p>© 2015 - 2020 <a href="https://maxiuli.com">MaXiaoBao</a>, powered by <a href="https://hexo.io/" target="_blank">Hexo</a> and <a target="_blank">hexo-theme-apollo</a>.<br><span class="span" style="background-color:#FF33FF;color:#fff">遇</span><span class="span" style="background-color:#FF3366;color:#fff">见</span><span class="span" style="background-color:#FF5433;color:#fff">更</span><span class="span" style="background-color:#FF9533;color:#fff">好</span><span class="span" style="background-color:#FFE733;color:#fff">的</span><span class="span" style="background-color:#79E22D;color:#fff">自</span><span class="span" style="background-color:#2B94D6;color:#fff">己</span><span class="span" style="background-color:#6A2BD6;color:#fff">❤</span></p></div></footer></div><script async src="//cdn.bootcss.com/mathjax/2.6.1/MathJax.js?config=TeX-MML-AM_CHTML"></script><script>(function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;e=o.createElement(i);r=o.getElementsByTagName(i)[0];e.src='//www.google-analytics.com/analytics.js';r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));ga('create',"UA-65933410-1",'auto');ga('send','pageview');</script></body></html>

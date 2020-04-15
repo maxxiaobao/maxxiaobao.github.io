@@ -1,0 +1,37 @@
+<!DOCTYPE html><html lang="en"><head><meta name="generator" content="Hexo 3.9.0"><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><title> 如何创建一个NPM包 · 马小宝</title><meta name="description" content="如何创建一个NPM包 - MaXiaoBao"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="short icon" href="/egg.ico"><link rel="stylesheet" href="/css/apollo.css"><link rel="search" type="application/opensearchdescription+xml" href="https://maxiuli.com/atom.xml" title="马小宝"></head><body><div class="wrap"><header><a href="/" class="logo-link"><img src="/egg.ico"></a><ul class="nav nav-list"><li class="nav-list-item"><a href="/" target="_self" class="nav-list-link">BLOG</a></li><li class="nav-list-item"><a href="/archives/" target="_self" class="nav-list-link">ARCHIVE</a></li><li class="nav-list-item"><a href="https://github.com/maxxiaobao" target="_blank" class="nav-list-link">GITHUB</a></li><li class="nav-list-item"><a href="/about/" target="_self" class="nav-list-link">ABOUT</a></li><li class="nav-list-item"><a href="/atom.xml" target="_self" class="nav-list-link">RSS</a></li></ul></header><section class="container"><div class="post"><article class="post-block"><h1 class="post-title">如何创建一个NPM包</h1><div class="post-info">Dec 8, 2017</div><div class="post-content"><p>经常使用 <code>npm install</code> 命令安装各种包，这次自己尝试自己写了一个发布在npm上(其实这是第二个了)</p>
+<h3 id="什么是npm"><a href="#什么是npm" class="headerlink" title="什么是npm"></a>什么是npm</h3><blockquote>
+<p><a href="https://www.npmjs.com/" target="_blank" rel="noopener">npm</a> 是Node 的模块管理器，功能极其强大。 它是Node 获得成功的重要原因之一。 正因为有了npm，我们只要一行命令，就能安装别人写好的模块。</p>
+</blockquote>
+<p>NPM <a href="https://www.npmjs.com/" target="_blank" rel="noopener">官方网站</a><br>先来 <a href="https://www.npmjs.com/signup" target="_blank" rel="noopener">注册一个账号</a></p>
+<a id="more"></a>
+<h3 id="写一个包"><a href="#写一个包" class="headerlink" title="写一个包"></a>写一个包</h3><ul>
+<li>创建一个文件夹 <code>test</code></li>
+<li>创建一个 <code>index.js</code></li>
+</ul>
+<pre><code class="js"><span class="comment">// index.js</span>
+<span class="function"><span class="keyword">function</span> <span class="title">test</span>(<span class="params"></span>) </span>{
+  <span class="built_in">console</span>.log(<span class="string">"Hello world !"</span>);
+}
+<span class="built_in">module</span>.exports = test;
+</code></pre>
+<ul>
+<li>命令行 执行 <code>npm init</code> 创建 <code>package.json</code> （所创建的 <code>test</code> 的基本信息）</li>
+</ul>
+<blockquote>
+<p>  “name”: “test”,<br>  “version”: “1.0.0”,</p>
+</blockquote>
+<h3 id="上传到npm官网"><a href="#上传到npm官网" class="headerlink" title="上传到npm官网"></a>上传到npm官网</h3><ul>
+<li><p><code>npm adduser</code> 输入username 和 password</p>
+<p>使用 <b>test</b> 发布 会有error</p>
+<blockquote>
+<p>npm ERR publish 403.<br>You do not have permission to publish ‘test’.Are you logged in as the corrent user?:test</p>
+</blockquote>
+<p>意思是我没权限发布test，并问我是否使用了正确的账号<br>说明test被人 发布过了，可以在<code>package.json</code>中 <code>name</code> 换一个，比如<code>test-mary</code></p>
+</li>
+<li><p><code>npm publish</code> 上传到npm官网</p>
+</li>
+<li>如果对npm包做了修改后，需要在 <code>package.json</code> 的 <code>version</code> ，然后执行 <code>npm publish</code></li>
+<li><code>npm unpublish --force</code> 在npm上删除包</li>
+</ul>
+</div></article></div></section><footer><div class="paginator"><a href="/2018/02/27/2017年终总结/" class="prev">PREV</a><a href="/2017/08/13/神奇的inline-block/" class="next">NEXT</a></div><style>.span{display: inline-block;width: 20px;height: 20px;font-size: 14px;line-height: 20px;text-align: center;}
+</style><div class="copyright"><p>© 2015 - 2020 <a href="https://maxiuli.com">MaXiaoBao</a>, powered by <a href="https://hexo.io/" target="_blank">Hexo</a> and <a target="_blank">hexo-theme-apollo</a>.<br><span class="span" style="background-color:#FF33FF;color:#fff">遇</span><span class="span" style="background-color:#FF3366;color:#fff">见</span><span class="span" style="background-color:#FF5433;color:#fff">更</span><span class="span" style="background-color:#FF9533;color:#fff">好</span><span class="span" style="background-color:#FFE733;color:#fff">的</span><span class="span" style="background-color:#79E22D;color:#fff">自</span><span class="span" style="background-color:#2B94D6;color:#fff">己</span><span class="span" style="background-color:#6A2BD6;color:#fff">❤</span></p></div></footer></div><script async src="//cdn.bootcss.com/mathjax/2.6.1/MathJax.js?config=TeX-MML-AM_CHTML"></script><script>(function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;e=o.createElement(i);r=o.getElementsByTagName(i)[0];e.src='//www.google-analytics.com/analytics.js';r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));ga('create',"UA-65933410-1",'auto');ga('send','pageview');</script></body></html>

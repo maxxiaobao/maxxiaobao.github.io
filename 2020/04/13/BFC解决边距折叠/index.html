@@ -1,0 +1,40 @@
+<!DOCTYPE html><html lang="en"><head><meta name="generator" content="Hexo 3.9.0"><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><title> BFC解决边距折叠 · 马小宝</title><meta name="description" content="BFC解决边距折叠 - MaXiaoBao"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="short icon" href="/egg.ico"><link rel="stylesheet" href="/css/apollo.css"><link rel="search" type="application/opensearchdescription+xml" href="https://maxiuli.com/atom.xml" title="马小宝"></head><body><div class="wrap"><header><a href="/" class="logo-link"><img src="/egg.ico"></a><ul class="nav nav-list"><li class="nav-list-item"><a href="/" target="_self" class="nav-list-link">BLOG</a></li><li class="nav-list-item"><a href="/archives/" target="_self" class="nav-list-link">ARCHIVE</a></li><li class="nav-list-item"><a href="https://github.com/maxxiaobao" target="_blank" class="nav-list-link">GITHUB</a></li><li class="nav-list-item"><a href="/about/" target="_self" class="nav-list-link">ABOUT</a></li><li class="nav-list-item"><a href="/atom.xml" target="_self" class="nav-list-link">RSS</a></li></ul></header><section class="container"><div class="post"><article class="post-block"><h1 class="post-title">BFC解决边距折叠</h1><div class="post-info">Apr 13, 2020</div><div class="post-content"><h3 id="什么是边距折叠"><a href="#什么是边距折叠" class="headerlink" title="什么是边距折叠"></a>什么是边距折叠</h3><p>当块级元素（block）的上外边距(margin-top)和下外边距(margin-bottom)同时都有设定时只会只会保留最大边距，这种行为称为外边距折叠（margin collapsing)。<a href="https://developer.mozilla.org/zh-CN/docs/Web/CSS/CSS_Box_Model/Mastering_margin_collapsing" target="_blank" rel="noopener">查看官方文档</a></p>
+<a id="more"></a>
+<blockquote>
+<p>比如:<br>margin-bottom: 40, margin-top: 20, 边距为正取大值，最后 两个元素之间边距 40<br>margin-bottom: 40, margin-top: -20, 最后 两个元素之间边距 40 - 20 = 20<br>margin-bottom: -40 margin-top: -20 边距为负取小值，最后 两个元素之间边距 -40</p>
+</blockquote>
+<h3 id="BFC-解决边距折叠"><a href="#BFC-解决边距折叠" class="headerlink" title="BFC 解决边距折叠"></a>BFC 解决边距折叠</h3><p>BFC (block formatting context) 块级格式化 <a href="https://developer.mozilla.org/zh-CN/docs/Web/Guide/CSS/Block_formatting_context" target="_blank" rel="noopener">文档</a></p>
+<p>何为 BFC ，只要元素满足下面任一条件即可触发 BFC 特性：</p>
+<ol>
+<li>body 根元素 <code>&lt;html&gt;</code></li>
+<li>浮动元素：float 不为 none 的属性值</li>
+<li>绝对定位：position: absolute 或 fixed</li>
+<li>display 为： inline-block、table-cells、flex 、grid</li>
+<li>overflow 除了 visible 以外的值 (hidden、auto、scroll)</li>
+</ol>
+<p>BFC 的布局规则：</p>
+<ol>
+<li>内部的盒子会在垂直方向，一个个地放置；</li>
+<li>BFC 是页面上的一个隔离的独立容器；</li>
+<li>属于同一个 BFC 的 两个相邻 Box 的 上下 margin 会发生重叠 ；</li>
+<li>计算 BFC 的高度时，浮动元素也参与计算</li>
+<li>BFC 的区域不会与 float 重叠；</li>
+</ol>
+<h3 id="BFC-还可以干什么"><a href="#BFC-还可以干什么" class="headerlink" title="BFC 还可以干什么"></a>BFC 还可以干什么</h3><blockquote>
+<ol>
+<li>BFC 可以包含浮动的元素（清除浮动）</li>
+</ol>
+</blockquote>
+<p></p><p class="codepen" data-height="265" data-theme-id="dark" data-default-tab="html,result" data-user="maxxiaobao" data-slug-hash="jObPQyz" style="height: 265px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; border: 2px solid; margin: 1em 0; padding: 1em;" data-pen-title="clear-float"><br>  <span>See the Pen <a href="https://codepen.io/maxxiaobao/pen/jObPQyz" target="_blank" rel="noopener"><br>  clear-float</a> by Mary (<a href="https://codepen.io/maxxiaobao" target="_blank" rel="noopener">@maxxiaobao</a>)<br>  on <a href="https://codepen.io" target="_blank" rel="noopener">CodePen</a>.</span><br></p><p></p>
+<script async src="https://static.codepen.io/assets/embed/ei.js"></script>
+
+<blockquote>
+<ol>
+<li>阻止元素被浮动元素覆盖</li>
+</ol>
+</blockquote>
+<p>把 <code>overflow: hidden</code> 注释后，便可发现左侧的红盒子底下右侧 div 的灰色背景被覆盖。</p>
+<p></p><p class="codepen" data-height="265" data-theme-id="dark" data-default-tab="html,result" data-user="maxxiaobao" data-slug-hash="JjYYMME" style="height: 265px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; border: 2px solid; margin: 1em 0; padding: 1em;" data-pen-title="example2"><br>  <span>See the Pen <a href="https://codepen.io/maxxiaobao/pen/JjYYMME" target="_blank" rel="noopener"><br>  example2</a> by Mary (<a href="https://codepen.io/maxxiaobao" target="_blank" rel="noopener">@maxxiaobao</a>)<br>  on <a href="https://codepen.io" target="_blank" rel="noopener">CodePen</a>.</span><br></p><p></p>
+<script async src="https://static.codepen.io/assets/embed/ei.js"></script>
+</div></article></div></section><footer><div class="paginator"><a href="/2020/02/26/Git默认不区分文件名大小写/" class="next">NEXT</a></div><style>.span{display: inline-block;width: 20px;height: 20px;font-size: 14px;line-height: 20px;text-align: center;}
+</style><div class="copyright"><p>© 2015 - 2020 <a href="https://maxiuli.com">MaXiaoBao</a>, powered by <a href="https://hexo.io/" target="_blank">Hexo</a> and <a target="_blank">hexo-theme-apollo</a>.<br><span class="span" style="background-color:#FF33FF;color:#fff">遇</span><span class="span" style="background-color:#FF3366;color:#fff">见</span><span class="span" style="background-color:#FF5433;color:#fff">更</span><span class="span" style="background-color:#FF9533;color:#fff">好</span><span class="span" style="background-color:#FFE733;color:#fff">的</span><span class="span" style="background-color:#79E22D;color:#fff">自</span><span class="span" style="background-color:#2B94D6;color:#fff">己</span><span class="span" style="background-color:#6A2BD6;color:#fff">❤</span></p></div></footer></div><script async src="//cdn.bootcss.com/mathjax/2.6.1/MathJax.js?config=TeX-MML-AM_CHTML"></script><script>(function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;e=o.createElement(i);r=o.getElementsByTagName(i)[0];e.src='//www.google-analytics.com/analytics.js';r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));ga('create',"UA-65933410-1",'auto');ga('send','pageview');</script></body></html>
