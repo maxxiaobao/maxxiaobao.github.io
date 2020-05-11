@@ -8,4 +8,4 @@ branches:
     - dev # build dev branch only
 script:
   - hexo generate # generate static files
-  - hexo d # deploy
+  - hexo deploy # deploy
