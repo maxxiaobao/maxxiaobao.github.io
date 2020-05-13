@@ -5,24 +5,20 @@ cache:
   directories:
     - node_modules
 node_js: stable
+branches:
+  only:
+    - dev # build dev branch only
 before_install:
   - npm install hexo-cli -g
 install:
   - npm install
   - npm install hexo-deployer-git --save
+before_script:
+  - git config user.name "maxxiaobao"
+  - git config user.email "maxiuli95@gamil.com"
+  - sed -i "s/github_token/${GH_TOKEN}/g" _config.yml || exit 1
 script:
   - hexo clean
   - hexo g
-after_script:
-  - cd ./public
-  - git init
-  - git config user.name "maxxiaobao"
-  - git config user.email "maxiuli95@gamil.com"
-  - git add .
-  - git commit -m "travis deploy"
-  - git push "https://${GH_TOKEN}github.com/maxxiaobao/maxxiaobao.github.io.git" master:master
+  - hexo d
 
-
-branches:
-  only:
-    - dev # build dev branch only
