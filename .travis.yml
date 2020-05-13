@@ -20,7 +20,7 @@ after_script:
   - git config user.email "maxiuli95@gamil.com"
   - git add .
   - git commit -m "travis deploy"
-  - git push --force --quiet "https://${GH_TOKEN}github.com/maxxiaobao/maxxiaobao.github.io.git" master:master
+  - git push "https://${GH_TOKEN}github.com/maxxiaobao/maxxiaobao.github.io.git" master:master
 
 
 branches:
